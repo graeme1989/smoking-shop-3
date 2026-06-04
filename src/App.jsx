@@ -1,5 +1,5 @@
 import './style.css'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 const products = [
   {
@@ -7,7 +7,7 @@ const products = [
     name: 'Blackout Glass Water Pipe',
     category: 'Glass Water Pipes',
     price: '£99.99',
-    image: '/blackout-glass-water-pipe.png',
+    image: '/smoking-shop-3/blackout-glass-water-pipe.png',
     details: [
       'Height: 35cm',
       'Material: Premium borosilicate glass',
@@ -21,7 +21,7 @@ const products = [
     name: 'Flog Em Dual Glass Water Pipe',
     category: 'Glass Water Pipes',
     price: '£49.99',
-    image: '/flog-em-dual.png',
+    image: '/smoking-shop-3/flog-em-dual.png',
     details: [
       'Height: 25cm',
       'Material: Borosilicate glass',
@@ -30,27 +30,27 @@ const products = [
       'Compact design with clean pull'
     ]
   },
-{
-  id: 3,
-  name: 'Chongz 7 Part Grinder',
-  category: 'Grinders',
-  price: '£34.99',
-  image: '/chongz-7-part.png',
-  details: [
-    'Size: 92mm',
-    'Material: Aluminium',
-    'Colour: Blue',
-    '7-part modular chamber system',
-    'Interchangeable mesh screen and grinder plates',
-    'Storage top with premium Chongz construction'
-      ]
+  {
+    id: 3,
+    name: 'Chongz 7 Part Grinder',
+    category: 'Grinders',
+    price: '£34.99',
+    image: '/smoking-shop-3/chongz-7-part.png',
+    details: [
+      'Size: 92mm',
+      'Material: Aluminium',
+      'Colour: Blue',
+      '7-part modular chamber system',
+      'Interchangeable mesh screen and grinder plates',
+      'Storage top with premium Chongz construction'
+    ]
   },
   {
     id: 4,
     name: 'Chongz Vapor Trail Blue Glass Honeycomb Percolator Water Pipe 22cm',
     category: 'Glass Water Pipes',
     price: '£34.99',
-    image: '/chongz-vapor-trail.png',
+    image: '/smoking-shop-3/chongz-vapor-trail.png',
     details: [
       'Height: 22cm',
       'Glass thickness: 5mm',
@@ -59,7 +59,7 @@ const products = [
       'Bent shape with fixed stem',
       'Includes 14mm female clear dome and nail',
       'Includes 14mm female clear cone piece',
-'Also available in other colours'
+      'Also available in other colours'
     ]
   },
   {
@@ -67,7 +67,7 @@ const products = [
     name: 'Chongz Nimrod Pink Glass Honeycomb Percolator Water Pipe 22cm',
     category: 'Glass Water Pipes',
     price: '£34.99',
-    image: '/NimrodGlass.png',
+    image: '/smoking-shop-3/NimrodGlass.png',
     details: [
       'Height: 22cm',
       'Glass thickness: 5mm',
@@ -77,16 +77,16 @@ const products = [
       'Includes 14mm female clear dome and nail',
       'Includes 14mm female clear cone piece',
       'Premium honeycomb percolation system',
-'Durable Chongz glass construction',
-'Also available in other colours'
+      'Durable Chongz glass construction',
+      'Also available in other colours'
     ]
-    },
+  },
   {
     id: 6,
     name: "CHONGZ 'GLASS JAW' RECYCLER WATER PIPE GREEN",
     category: 'Glass Water Pipes',
     price: '£39.99',
-    image: '/ChongzGlassJaw.png',
+    image: '/smoking-shop-3/ChongzGlassJaw.png',
     details: [
       'Height: 16cm',
       'Green accented glass',
@@ -104,7 +104,7 @@ const products = [
     name: "CHONGZ 'MAIN LINE' RECYCLER WATER PIPE TEAL",
     category: 'Glass Water Pipes',
     price: '£39.99',
-    image: '/MainLine.png',
+    image: '/smoking-shop-3/MainLine.png',
     details: [
       'Compact recycler-style glass design',
       'Teal accented glass',
@@ -113,169 +113,169 @@ const products = [
       'Durable Chongz glass construction',
       'Premium glassware design',
       'Also available in other colours'
-   ]
-},
-{
-  id: 8,
-  name: 'CHONGZ DIG DUAL SYSTEM PERCOLATOR WATER PIPE',
-  category: 'Glass Water Pipes',
-  price: '£39.99',
-  image: '/DigDual.png',
-  details: [
-    'Dual percolator filtration system',
-    'Borosilicate glass construction',
-    'Stable rounded base',
-    'Includes glass accessories',
-    'Durable Chongz design',
-        'Suitable for dry herb use'
-  ]
-},
-{
-  id: 9,
-  name: "CHONGZ DR DEATH TRIPLE DIFFUSER WATER PIPE GREEN 52CM",
-  category: 'Glass Water Pipes',
-  price: '£99.99',
-  image: '/dr-death-green.png',
-  details: [
-    'Height: 52cm',
-    'Glass Thickness: 6mm',
-    'Triple diffuser filtration system',
-    'Premium borosilicate glass construction',
-    'Multiple chamber design',
-    'Ice shelf for cooler filtration',
-    '18mm male cone piece included',
-    'Green accented glasswork',
-    'Part of the Dr Death colour collection'
-  ]
-},
-{
-  id: 10,
-  name: "CHONGZ DR DEATH TRIPLE DIFFUSER WATER PIPE MINT GREEN 52CM",
-  category: 'Glass Water Pipes',
-  price: '£99.99',
-  image: '/dr-death-mint.png',
-  details: [
-    'Height: 52cm',
-    'Glass Thickness: 6mm',
-    'Triple diffuser filtration system',
-    'Premium borosilicate glass construction',
-    'Multiple chamber design',
-    'Ice shelf for cooler filtration',
-    '18mm male cone piece included',
-    'Mint green accented glasswork',
-    'Part of the Dr Death colour collection'
-  ]
-},
-{
-  id: 11,
-  name: "CHONGZ DR DEATH TRIPLE DIFFUSER WATER PIPE BLACK 52CM",
-  category: 'Glass Water Pipes',
-  price: '£99.99',
-  image: '/dr-death-black.png',
-  details: [
-    'Height: 52cm',
-    'Glass Thickness: 6mm',
-    'Triple diffuser filtration system',
-    'Premium borosilicate glass construction',
-    'Multiple chamber design',
-    'Ice shelf for cooler filtration',
-    '18mm male cone piece included',
-    'Black accented glasswork',
-    'Part of the Dr Death colour collection'
-  ]
-},
-{
-  id: 12,
-  name: "CHONGZ DR DEATH TRIPLE DIFFUSER WATER PIPE BLUE 52CM",
-  category: 'Glass Water Pipes',
-  price: '£99.99',
-  image: '/dr-death-blue.png',
-  details: [
-    'Height: 52cm',
-    'Glass Thickness: 6mm',
-    'Triple diffuser filtration system',
-    'Premium borosilicate glass construction',
-    'Multiple chamber design',
-    'Ice shelf for cooler filtration',
-    '18mm male cone piece included',
-    'Blue accented glasswork',
-    'Part of the Dr Death colour collection'
-  ]
-},
-{
-  id: 13,
-  name: "CHONGZ DR DEATH TRIPLE DIFFUSER WATER PIPE WHITE 52CM",
-  category: 'Glass Water Pipes',
-  price: '£99.99',
-  image: '/dr-death-white.png',
-  details: [
-    'Height: 52cm',
-    'Glass Thickness: 6mm',
-    'Triple diffuser filtration system',
-    'Premium borosilicate glass construction',
-    'Multiple chamber design',
-    'Ice shelf for cooler filtration',
-    '18mm male cone piece included',
-    'White accented glasswork',
-    'Part of the Dr Death colour collection'
-  ]
-},
-,
-{
-  id: 14,
-  name: 'CHONGZ 40CM PLUG 9MM BEAKER GLASS ICE WATERPIPE GREEN',
-  category: 'Glass Water Pipes',
-  price: '£49.99',
-  image: '/plug-green.png',
-  details: [
-    'Height: 40cm',
-    'Glass Thickness: 9mm',
-    'Beaker style base',
-    'Ice Water Pipe design',
-    'Heavy-duty glass construction',
-    'Green accented neck',
-    'Stable square-style beaker base',
-    'Premium Chongz glassware',
-    'Also available in Purple and Pink'
-  ]
-},
-{
-  id: 15,
-  name: 'CHONGZ 40CM PLUG 9MM BEAKER GLASS ICE WATERPIPE PURPLE',
-  category: 'Glass Water Pipes',
-  price: '£49.99',
-  image: '/plug-purple.png',
-  details: [
-    'Height: 40cm',
-    'Glass Thickness: 9mm',
-    'Beaker style base',
-    'Ice Water Pipe design',
-    'Heavy-duty glass construction',
-    'Purple accented neck',
-    'Stable square-style beaker base',
-    'Premium Chongz glassware',
-    'Also available in Green and Pink'
-  ]
-},
-{
-  id: 16,
-  name: 'CHONGZ 40CM PLUG 9MM BEAKER GLASS ICE WATERPIPE PINK',
-  category: 'Glass Water Pipes',
-  price: '£49.99',
-  image: '/plug-pink.png',
-  details: [
-    'Height: 40cm',
-    'Glass Thickness: 9mm',
-    'Beaker style base',
-    'Ice Water Pipe design',
-    'Heavy-duty glass construction',
-    'Pink accented neck',
-    'Stable square-style beaker base',
-    'Premium Chongz glassware',
-    'Also available in Green and Purple'
-  ]
-}
+    ]
+  },
+  {
+    id: 8,
+    name: 'CHONGZ DIG DUAL SYSTEM PERCOLATOR WATER PIPE',
+    category: 'Glass Water Pipes',
+    price: '£39.99',
+    image: '/smoking-shop-3/DigDual.png',
+    details: [
+      'Dual percolator filtration system',
+      'Borosilicate glass construction',
+      'Stable rounded base',
+      'Includes glass accessories',
+      'Durable Chongz design',
+      'Suitable for dry herb use'
+    ]
+  },
+  {
+    id: 9,
+    name: "CHONGZ DR DEATH TRIPLE DIFFUSER WATER PIPE GREEN 52CM",
+    category: 'Glass Water Pipes',
+    price: '£99.99',
+    image: '/smoking-shop-3/dr-death-green.png',
+    details: [
+      'Height: 52cm',
+      'Glass Thickness: 6mm',
+      'Triple diffuser filtration system',
+      'Premium borosilicate glass construction',
+      'Multiple chamber design',
+      'Ice shelf for cooler filtration',
+      '18mm male cone piece included',
+      'Green accented glasswork',
+      'Part of the Dr Death colour collection'
+    ]
+  },
+  {
+    id: 10,
+    name: "CHONGZ DR DEATH TRIPLE DIFFUSER WATER PIPE MINT GREEN 52CM",
+    category: 'Glass Water Pipes',
+    price: '£99.99',
+    image: '/smoking-shop-3/dr-death-mint.png',
+    details: [
+      'Height: 52cm',
+      'Glass Thickness: 6mm',
+      'Triple diffuser filtration system',
+      'Premium borosilicate glass construction',
+      'Multiple chamber design',
+      'Ice shelf for cooler filtration',
+      '18mm male cone piece included',
+      'Mint green accented glasswork',
+      'Part of the Dr Death colour collection'
+    ]
+  },
+  {
+    id: 11,
+    name: "CHONGZ DR DEATH TRIPLE DIFFUSER WATER PIPE BLACK 52CM",
+    category: 'Glass Water Pipes',
+    price: '£99.99',
+    image: '/smoking-shop-3/dr-death-black.png',
+    details: [
+      'Height: 52cm',
+      'Glass Thickness: 6mm',
+      'Triple diffuser filtration system',
+      'Premium borosilicate glass construction',
+      'Multiple chamber design',
+      'Ice shelf for cooler filtration',
+      '18mm male cone piece included',
+      'Black accented glasswork',
+      'Part of the Dr Death colour collection'
+    ]
+  },
+  {
+    id: 12,
+    name: "CHONGZ DR DEATH TRIPLE DIFFUSER WATER PIPE BLUE 52CM",
+    category: 'Glass Water Pipes',
+    price: '£99.99',
+    image: '/smoking-shop-3/dr-death-blue.png',
+    details: [
+      'Height: 52cm',
+      'Glass Thickness: 6mm',
+      'Triple diffuser filtration system',
+      'Premium borosilicate glass construction',
+      'Multiple chamber design',
+      'Ice shelf for cooler filtration',
+      '18mm male cone piece included',
+      'Blue accented glasswork',
+      'Part of the Dr Death colour collection'
+    ]
+  },
+  {
+    id: 13,
+    name: "CHONGZ DR DEATH TRIPLE DIFFUSER WATER PIPE WHITE 52CM",
+    category: 'Glass Water Pipes',
+    price: '£99.99',
+    image: '/smoking-shop-3/dr-death-white.png',
+    details: [
+      'Height: 52cm',
+      'Glass Thickness: 6mm',
+      'Triple diffuser filtration system',
+      'Premium borosilicate glass construction',
+      'Multiple chamber design',
+      'Ice shelf for cooler filtration',
+      '18mm male cone piece included',
+      'White accented glasswork',
+      'Part of the Dr Death colour collection'
+    ]
+  },
+  {
+    id: 14,
+    name: 'CHONGZ 40CM PLUG 9MM BEAKER GLASS ICE WATERPIPE GREEN',
+    category: 'Glass Water Pipes',
+    price: '£49.99',
+    image: '/smoking-shop-3/plug-green.png',
+    details: [
+      'Height: 40cm',
+      'Glass Thickness: 9mm',
+      'Beaker style base',
+      'Ice Water Pipe design',
+      'Heavy-duty glass construction',
+      'Green accented neck',
+      'Stable square-style beaker base',
+      'Premium Chongz glassware',
+      'Also available in Purple and Pink'
+    ]
+  },
+  {
+    id: 15,
+    name: 'CHONGZ 40CM PLUG 9MM BEAKER GLASS ICE WATERPIPE PURPLE',
+    category: 'Glass Water Pipes',
+    price: '£49.99',
+    image: '/smoking-shop-3/plug-purple.png',
+    details: [
+      'Height: 40cm',
+      'Glass Thickness: 9mm',
+      'Beaker style base',
+      'Ice Water Pipe design',
+      'Heavy-duty glass construction',
+      'Purple accented neck',
+      'Stable square-style beaker base',
+      'Premium Chongz glassware',
+      'Also available in Green and Pink'
+    ]
+  },
+  {
+    id: 16,
+    name: 'CHONGZ 40CM PLUG 9MM BEAKER GLASS ICE WATERPIPE PINK',
+    category: 'Glass Water Pipes',
+    price: '£49.99',
+    image: '/smoking-shop-3/plug-pink.png',
+    details: [
+      'Height: 40cm',
+      'Glass Thickness: 9mm',
+      'Beaker style base',
+      'Ice Water Pipe design',
+      'Heavy-duty glass construction',
+      'Pink accented neck',
+      'Stable square-style beaker base',
+      'Premium Chongz glassware',
+      'Also available in Green and Purple'
+    ]
+  }
 ]
+
 const categories = ['All', 'Glass Water Pipes', 'Accessories', 'Grinders', 'Papers']
 
 export default function App() {
