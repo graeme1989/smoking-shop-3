@@ -1,5 +1,5 @@
 import './style.css'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const products = [
   {
@@ -21,7 +21,7 @@ const products = [
     name: 'Flog Em Dual Glass Water Pipe',
     category: '/Glass Water Pipes',
     price: '£49.99',
-    image: 'flog-em-dual.png',
+    image: '/flog-em-dual.png',
     details: [
       'Height: 25cm',
       'Material: Borosilicate glass',
@@ -281,15 +281,115 @@ const categories = ['All', 'Glass Water Pipes', 'Accessories', 'Grinders', 'Pape
 export default function App() {
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [selectedCategory, setSelectedCategory] = useState('All')
+  const [cart, setCart] = useState(() => {
+  const savedCart = localStorage.getItem('smokologyCart')
+  return savedCart ? JSON.parse(savedCart) : []
+})
+  const [cartOpen, setCartOpen] = useState(false)
+const [addedMessage, setAddedMessage] = useState(null)
+useEffect(() => {
+  localStorage.setItem('smokologyCart', JSON.stringify(cart))
+}, [cart])
+  const getPriceNumber = (price) => Number(price.replace('£', ''))
+
+  const addToCart = (product) => {
+    setCart((currentCart) => {
+      const existingItem = currentCart.find((item) => item.id === product.id)
+
+      if (existingItem) {
+        return currentCart.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
+      }
+
+return [...currentCart, { ...product, quantity: 1 }]
+})
+
+setAddedMessage(product)
+
+// setTimeout(() => {
+//   setAddedMessage(null)
+// }, 4000)
+}
+  const increaseQuantity = (productId) => {
+    setCart((currentCart) =>
+      currentCart.map((item) =>
+        item.id === productId
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      )
+    )
+  }
+
+  const decreaseQuantity = (productId) => {
+    setCart((currentCart) =>
+      currentCart
+        .map((item) =>
+          item.id === productId
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        )
+        .filter((item) => item.quantity > 0)
+    )
+  }
+
+  const removeFromCart = (productId) => {
+    setCart((currentCart) =>
+      currentCart.filter((item) => item.id !== productId)
+    )
+  }
+
+  const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0)
+
+  const cartTotal = cart.reduce(
+    (total, item) => total + getPriceNumber(item.price) * item.quantity,
+    0
+  )
 
   const filteredProducts =
     selectedCategory === 'All'
       ? products
       : products.filter((product) => product.category === selectedCategory)
 
+  const emailBody = cart
+    .map(
+      (item) =>
+        `${item.name} x ${item.quantity} - ${item.price}`
+    )
+    .join('%0D%0A')
+
   if (selectedProduct) {
     return (
       <div className="site">
+        <button className="cart-button" onClick={() => setCartOpen(true)}>
+          Basket ({cartItemCount})
+</button>
+{addedMessage && (
+  <div className="added-popup">
+    <h3>✓ Added to Basket</h3>
+    <p>{addedMessage.name} has been added successfully.</p>
+
+    <div className="added-popup-buttons">
+      <button onClick={() => setAddedMessage(null)}>
+        Continue Shopping
+      </button>
+
+      <button
+onClick={() => {
+  setAddedMessage(null)
+  setSelectedProduct(null)
+  setCartOpen(true)
+}}
+      >
+        View Basket
+      </button>
+    </div>
+  </div>
+)}
+
+
         <main className="product-page">
           <button onClick={() => setSelectedProduct(null)}>
             ← Back to products
@@ -310,13 +410,19 @@ export default function App() {
                 ))}
               </ul>
 
-              <a
-                href="https://www.instagram.com/edinburghsmokeshop"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <button>Enquire to Buy</button>
-              </a>
+              <div className="detail-button-row">
+  <button onClick={() => addToCart(selectedProduct)}>
+    Add to Basket
+  </button>
+
+  <a
+    href="https://www.instagram.com/edinburghsmokeshop"
+    target="_blank"
+    rel="noreferrer"
+  >
+    <button>Enquire on Instagram</button>
+  </a>
+</div>
 
               <p style={{ marginTop: '20px', color: '#cbd5e1' }}>
                 Email: smokeshop154@gmail.com
@@ -330,6 +436,43 @@ export default function App() {
 
   return (
     <div className="site">
+      <button className="cart-button" onClick={() => setCartOpen(true)}>
+        Basket ({cartItemCount})
+      </button>
+{addedMessage && (
+  <div className="added-popup">
+    <h3>✓ Added to Basket</h3>
+    <p>{addedMessage.name} has been added successfully.</p>
+
+    <div className="added-popup-buttons">
+      <button onClick={() => setAddedMessage(null)}>
+        Continue Shopping
+      </button>
+
+      <button
+        onClick={() => {
+          setAddedMessage(null)
+          setCartOpen(true)
+        }}
+      >
+        View Basket
+      </button>
+    </div>
+  </div>
+)}
+
+      {cartOpen && (
+        <CartPanel
+          cart={cart}
+          cartTotal={cartTotal}
+          increaseQuantity={increaseQuantity}
+          decreaseQuantity={decreaseQuantity}
+          removeFromCart={removeFromCart}
+          setCartOpen={setCartOpen}
+          emailBody={emailBody}
+        />
+      )}
+
       <header className="store-header">
         <div className="brand">
           <div className="brand-logo">S</div>
@@ -352,7 +495,7 @@ export default function App() {
         <div>
           <h1>Products</h1>
           <p style={{ color: '#cbd5e1', fontSize: '20px', marginBottom: '30px' }}>
-            Order via Instagram or email: smokeshop154@gmail.com
+            Add products to your basket and email your order.
           </p>
         </div>
 
@@ -370,23 +513,159 @@ export default function App() {
 
         <div className="product-grid">
           {filteredProducts.map((product) => (
-            <article
-              className="product-card"
-              key={product.id}
-              onClick={() => setSelectedProduct(product)}
-            >
-              <img className="product-photo" src={product.image} alt={product.name} />
+            <article className="product-card" key={product.id}>
+              <img
+                className="product-photo"
+                src={product.image}
+                alt={product.name}
+                onClick={() => setSelectedProduct(product)}
+              />
 
               <div className="product-info">
                 <p className="brand-tag">{product.category}</p>
-                <h3>{product.name}</h3>
+                <h3 onClick={() => setSelectedProduct(product)}>{product.name}</h3>
                 <p className="price">{product.price}</p>
-                <button>View Details</button>
+
+                <button onClick={() => setSelectedProduct(product)}>
+                  View Details
+                </button>
+
+                <button onClick={() => addToCart(product)}>
+                  Add to Basket
+                </button>
               </div>
             </article>
           ))}
         </div>
       </main>
+    </div>
+  )
+}
+
+function CartPanel({
+  cart,
+  cartTotal,
+  increaseQuantity,
+  decreaseQuantity,
+  removeFromCart,
+  setCartOpen
+}) {
+  const [customerName, setCustomerName] = useState('')
+  const [customerEmail, setCustomerEmail] = useState('')
+  const [customerPhone, setCustomerPhone] = useState('')
+  const [customerAddress, setCustomerAddress] = useState('')
+  const [orderNotes, setOrderNotes] = useState('')
+
+  const orderItems = cart
+    .map((item) => `${item.name} x ${item.quantity} - ${item.price}`)
+    .join('%0D%0A')
+
+  const customerDetails = `
+Name: ${customerName}
+Email: ${customerEmail}
+Phone: ${customerPhone}
+Delivery Address: ${customerAddress}
+Order Notes: ${orderNotes}
+`
+    .replaceAll('\n', '%0D%0A')
+
+  return (
+    <div className="cart-overlay">
+      <aside className="cart-panel">
+        <div className="cart-header">
+          <h2>Your Basket</h2>
+          <button onClick={() => setCartOpen(false)}>×</button>
+        </div>
+
+        {cart.length === 0 ? (
+          <p className="empty-cart">Your basket is empty.</p>
+        ) : (
+          <>
+            {cart.map((item) => (
+              <div className="cart-item" key={item.id}>
+                <img src={item.image} alt={item.name} />
+
+                <div>
+                  <h4>{item.name}</h4>
+                  <p>{item.price}</p>
+
+                  <div className="quantity-row">
+                    <button onClick={() => decreaseQuantity(item.id)}>-</button>
+                    <span>{item.quantity}</span>
+                    <button onClick={() => increaseQuantity(item.id)}>+</button>
+                  </div>
+
+                  <button
+                    className="remove-button"
+                    onClick={() => removeFromCart(item.id)}
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            ))}
+
+            <div className="cart-total">
+              <strong>Total:</strong>
+              <strong>£{cartTotal.toFixed(2)}</strong>
+            </div>
+
+            <div className="checkout-form">
+              <h3>Delivery Details</h3>
+
+              <input
+                type="text"
+                placeholder="Full name"
+                value={customerName}
+                onChange={(event) => setCustomerName(event.target.value)}
+              />
+
+              <input
+                type="email"
+                placeholder="Email address"
+                value={customerEmail}
+                onChange={(event) => setCustomerEmail(event.target.value)}
+              />
+
+              <input
+                type="tel"
+                placeholder="Phone number"
+                value={customerPhone}
+                onChange={(event) => setCustomerPhone(event.target.value)}
+              />
+
+              <textarea
+                placeholder="Delivery address"
+                value={customerAddress}
+                onChange={(event) => setCustomerAddress(event.target.value)}
+              />
+
+              <textarea
+                placeholder="Order notes"
+                value={orderNotes}
+                onChange={(event) => setOrderNotes(event.target.value)}
+              />
+            </div>
+<p
+  style={{
+    textAlign: 'center',
+    color: '#cbd5e1',
+    fontSize: '14px',
+    marginBottom: '16px'
+  }}
+>
+  Online card payments are coming soon. For now, submit your order and we will contact you to arrange payment and delivery.
+</p>
+            <a
+              href={`mailto:smokeshop154@gmail.com?subject=New Smokology Scotland Order&body=Order:%0D%0A${orderItems}%0D%0A%0D%0ATotal: £${cartTotal.toFixed(2)}%0D%0A%0D%0ACustomer Details:%0D%0A${customerDetails}`}
+            >
+              <button className="checkout-button">
+                Email Order
+              </button>
+            </a>
+          </>
+        )}
+      </aside>
     </div>
   )
 }

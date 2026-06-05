@@ -273,3 +273,151 @@ footer {
   letter-spacing: 2px;
   font-size: 14px;
 }
+.cart-button {
+  position: fixed;
+  top: 96px;
+  right: 40px;
+  width: 140px;
+  z-index: 50;
+}
+
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.75);
+  z-index: 100;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cart-panel {
+  width: 420px;
+  max-width: 100%;
+  height: 100%;
+  background: #0f172a;
+  color: white;
+  padding: 24px;
+  overflow-y: auto;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.35);
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.cart-header h2 {
+  margin: 0;
+}
+
+.cart-header button {
+  font-size: 28px;
+  padding: 6px 14px;
+}
+
+.empty-cart {
+  color: #cbd5e1;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.cart-item img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  background: linear-gradient(145deg, #111827, #1e293b);
+  border-radius: 12px;
+  padding: 8px;
+}
+
+.cart-item h4 {
+  margin: 0 0 8px;
+  font-size: 15px;
+}
+
+.cart-item p {
+  margin: 0 0 10px;
+  color: #facc15;
+  font-weight: 700;
+}
+
+.quantity-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.quantity-row button {
+  padding: 6px 12px;
+}
+
+.remove-button {
+  background: transparent;
+  border: 1px solid #ef4444;
+  color: #fecaca;
+  padding: 7px 12px;
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  margin: 24px 0;
+}
+
+.checkout-button {
+  width: 100%;
+  padding: 16px;
+  font-size: 18px;
+}
+.detail-button-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.store-header a button {
+  width: 140px;
+}
+.added-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 20px;
+  padding: 30px;
+  width: 450px;
+  max-width: 90%;
+  text-align: center;
+  z-index: 9999;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+}
+
+.added-popup h3 {
+  margin-bottom: 15px;
+}
+
+.added-popup p {
+  margin-bottom: 25px;
+}
+
+.added-popup-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.added-popup-buttons button {
+  min-width: 160px;
+}
