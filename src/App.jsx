@@ -281,6 +281,7 @@ const categories = ['All', 'Glass Water Pipes', 'Accessories', 'Grinders', 'Pape
 export default function App() {
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [selectedCategory, setSelectedCategory] = useState('All')
+const [currentPage, setCurrentPage] = useState('home')
   const [cart, setCart] = useState(() => {
   const savedCart = localStorage.getItem('smokologyCart')
   return savedCart ? JSON.parse(savedCart) : []
@@ -491,6 +492,14 @@ onClick={() => {
         </a>
       </header>
 
+{currentPage !== 'home' ? (
+  <LegalPage
+    currentPage={currentPage}
+    setCurrentPage={setCurrentPage}
+/>
+) : (
+  <>
+
       <main className="products-section">
         <div>
           <h1>Products</h1>
@@ -538,6 +547,41 @@ onClick={() => {
           ))}
         </div>
       </main>
+
+      <footer className="site-footer">
+        <button onClick={() => setCurrentPage('privacy')}>
+          Privacy Policy
+        </button>
+
+<button onClick={() => setCurrentPage('about')}>
+  About Us
+</button>
+
+<button onClick={() => setCurrentPage('contact')}>
+  Contact Us
+</button>
+
+        <button onClick={() => setCurrentPage('terms')}>
+          Terms & Conditions
+        </button>
+
+        <button onClick={() => setCurrentPage('returns')}>
+          Returns & Refunds
+        </button>
+
+        <button onClick={() => setCurrentPage('delivery')}>
+          Delivery Information
+        </button>
+
+        <button onClick={() => setCurrentPage('age')}>
+          Age Restriction Policy
+        </button>
+
+        <p>© 2026 Smokology Scotland</p>
+        <p>smokeshop154@gmail.com</p>
+        </footer>
+    </>
+  )}
     </div>
   )
 }
@@ -667,5 +711,107 @@ Order Notes: ${orderNotes}
         )}
       </aside>
     </div>
+  )
+
+}
+
+function LegalPage({ currentPage, setCurrentPage }) {
+  const pages = {
+    privacy: {
+      title: 'Privacy Policy',
+      content: [
+        'Smokology Scotland respects your privacy and is committed to protecting your personal information.',
+        'When you place an order or contact us, we may collect your name, email address, phone number, delivery address, order details, and any information you choose to provide.',
+        'We use this information to process orders, contact customers, arrange delivery, respond to enquiries, and keep basic business records.',
+        'We do not sell your personal information.',
+        'Customer information may be shared only where necessary with delivery providers, payment providers, or where required by law.',
+        'To request access, correction, or deletion of your personal information, contact us at smokeshop154@gmail.com.'
+      ]
+    },
+    terms: {
+      title: 'Terms & Conditions',
+      content: [
+        'This website is operated as Smokology Scotland, an online store for adult smoking accessories.',
+        'By using this website or placing an order, you confirm that you are at least 18 years old.',
+        'All products are sold strictly for lawful use by adults only.',
+        'Product descriptions, prices, and availability may change at any time.',
+        'Orders are not confirmed until payment and delivery details have been agreed.',
+        'We reserve the right to refuse or cancel any order where age, payment, stock, delivery, or legal concerns arise.',
+        'Nothing in these terms affects your statutory rights.'
+      ]
+    },
+    returns: {
+      title: 'Returns & Refunds',
+      content: [
+        'If an item arrives faulty, damaged, broken, or incorrect, please contact us as soon as possible at smokeshop154@gmail.com with your order details and photos where possible.',
+        'For online orders, customers may cancel within 14 days of receiving their order, provided the item is unused, unopened where hygiene applies, undamaged, and returned in resaleable condition.',
+        'Customers are responsible for returning unwanted items unless the item is faulty, damaged, broken, or incorrect.',
+        'Used smoking accessories cannot usually be returned unless faulty.',
+        'Refunds will be processed after the returned item has been received and checked.',
+        'We may reduce a refund if an item has been used, damaged, or handled beyond what is necessary to inspect it.'
+      ]
+    },
+    delivery: {
+      title: 'Delivery Information',
+      content: [
+        'Delivery charges are calculated based on the total packed weight, parcel size, destination, and available Royal Mail delivery service.',
+        'Delivery charges will be confirmed before payment is taken.',
+        'Larger or heavier glass items may cost more to deliver due to weight, size, and protective packaging requirements.',
+        'Orders are usually dispatched within 1–2 working days after payment is confirmed.',
+        'Delivery times are estimates and may vary depending on the delivery provider.',
+        'Tracking information will be provided where available.',
+        'Customers are responsible for providing accurate delivery details.'
+      ]
+    },
+age: {
+  title: 'Age Restriction Policy',
+  content: [
+    'Smokology Scotland sells adult smoking accessories only.',
+    'You must be 18 or over to use this website, place an order, or purchase any product.',
+    'By placing an order, you confirm that you are at least 18 years old.',
+    'We reserve the right to request proof of age before accepting or completing an order.',
+    'Orders may be refused or cancelled if we believe the customer is under 18 or cannot provide suitable age verification.',
+    'Products must not be purchased for anyone under the age of 18.'
+  ]
+},
+
+about: {
+  title: 'About Us',
+  content: [
+    'Smokology Scotland is a Scottish online retailer specialising in quality adult smoking accessories.',
+    'We focus on reliable products, fair pricing, and straightforward customer service.',
+    'Our aim is to provide customers with a simple and professional shopping experience.',
+    'We are committed to clear product information and responsive support.'
+  ]
+},
+
+contact: {
+  title: 'Contact Us',
+  content: [
+    'Email: smokeshop154@gmail.com',
+    'Instagram: @edinburghsmokeshop',
+    'For customer enquiries, please contact us using the details above.'
+  ]
+}
+}
+
+  const page = pages[currentPage]
+
+  return (
+    <main className="legal-page">
+      <button onClick={() => setCurrentPage('home')}>
+        ← Back to products
+      </button>
+
+      <h1>{page.title}</h1>
+
+      {page.content.map((paragraph) => (
+        <p key={paragraph}>{paragraph}</p>
+      ))}
+
+      <p>
+        Contact: smokeshop154@gmail.com
+      </p>
+    </main>
   )
 }
