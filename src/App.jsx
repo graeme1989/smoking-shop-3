@@ -270,10 +270,27 @@ const products = [
       'Heavy-duty glass construction',
       'Pink accented neck',
       'Stable square-style beaker base',
-      'Premium Chongz glassware',
+      'Premium Change glassware',
       'Also available in Green and Purple'
     ]
-  }
+  },
+{
+  id: 17,
+  name: 'Chongz Triple Honeycomb Percolator Glass Water Pipe Blue',
+  category: 'Glass Water Pipes',
+  price: '£59.99',
+  image: '/triple-honeycomb-blue.png',
+  details: [
+    'Triple honeycomb disc percolator system',
+    'Blue accented borosilicate glass',
+    'Straight tube design',
+    'Removable glass bowl included',
+    'Enhanced filtration and cooling',
+    'Wide stable base',
+    'Premium Chongz glass construction',
+    'Suitable for adult smoking accessories collections'
+  ]
+}
 ]
 
 const categories = ['All', 'Glass Water Pipes', 'Accessories', 'Grinders', 'Papers']
@@ -437,7 +454,13 @@ onClick={() => {
 
   return (
     <div className="site">
-      <button className="cart-button" onClick={() => setCartOpen(true)}>
+      <button
+  className="cart-button"
+  onClick={() => {
+    setSelectedProduct(null)
+    setCartOpen(true)
+  }}
+>
         Basket ({cartItemCount})
       </button>
 {addedMessage && (
