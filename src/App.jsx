@@ -309,6 +309,13 @@ useEffect(() => {
   localStorage.setItem('smokologyCart', JSON.stringify(cart))
 }, [cart])
   const getPriceNumber = (price) => Number(price.replace('£', ''))
+const openCart = () => {
+  setSelectedProduct(null)
+
+  setTimeout(() => {
+    setCartOpen(true)
+  }, 0)
+}
 
   const addToCart = (product) => {
     setCart((currentCart) => {
@@ -381,7 +388,7 @@ setAddedMessage(product)
   if (selectedProduct) {
     return (
       <div className="site">
-        <button className="cart-button" onClick={() => setCartOpen(true)}>
+        <button className="cart-button" onClick={openCart}>
           Basket ({cartItemCount})
 </button>
 {addedMessage && (
@@ -456,13 +463,10 @@ onClick={() => {
     <div className="site">
       <button
   className="cart-button"
-  onClick={() => {
-    setSelectedProduct(null)
-    setCartOpen(true)
-  }}
+ onClick={openCart}
 >
-        Basket ({cartItemCount})
-      </button>
+  Basket ({cartItemCount})
+</button>
 {addedMessage && (
   <div className="added-popup">
     <h3>✓ Added to Basket</h3>
