@@ -526,7 +526,7 @@ const products = [
 {
   id: 31,
   name: 'Royal Blunts Hemparillo Hemp Wraps',
-  category: 'Papers',
+  category: 'Wraps',
   price: '£1.99',
   image: '/royal-blunts-hemparillo.png',
   weight: 0.02,
@@ -550,113 +550,7 @@ const products = [
     'All natural hemp wraps',
     'Available in multiple flavours'
   ]
-},
-{
-  id: 32,
-  name: 'Cyclones Pre-Rolled Cone Blunts',
-  category: 'Papers',
-  price: '£1.99',
-  image: '/cyclones-cone-blunts.png',
-  weight: 0.02,
-  options: {
-    label: 'Flavour',
-    values: [
-      'Blueberry',
-      'Peach',
-      'Grape',
-      'Caffeine',
-      'Black Widow',
-      'Cherry',
-      'Strawberry',
-      'White Chocolate',
-      'Rockstar',
-      'Purple Haze'
-    ]
-  },
-  details: [
-    'Pre-rolled cone blunt',
-    'Ready to fill',
-    'Slow burning wrap',
-    'Available in multiple flavours',
-    'Cyclones original product'
-  ]
-},
-{
-  id: 33,
-  name: "Juicy Jay's Jones Cones",
-  category: 'Papers',
-  price: '£1.99',
-  image: '/juicy-jays-jones-cones.png',
-  weight: 0.02,
-  options: {
-    label: 'Flavour',
-    values: [
-      'Blackberry Jones',
-      'Watermelon Jones'
-    ]
-  },
-  details: [
-    'Pre-rolled flavoured cones',
-    'Includes reusable packing stick',
-    'Ready to fill',
-    'Slow burning paper',
-    'Juicy Jay flavour range'
-  ]
-},
-{
-  id: 34,
-  name: 'Cyclones Hemp Cones',
-  category: 'Papers',
-  price: '£1.99',
-  image: '/cyclones-hemp-cones.png',
-  weight: 0.02,
-  options: {
-    label: 'Flavour',
-    values: [
-      'Red Alert',
-      'Blue',
-      'Mean Green',
-      'Purple'
-    ]
-  },
-  details: [
-    'Hemp cone blunt',
-    'Pre-rolled cone',
-    'Ready to fill',
-    'Natural hemp wrap',
-    'Available in multiple flavours'
-  ]
-},
-{
-  id: 35,
-  name: 'Twist Chamber Glass Pipe',
-  category: 'Accessories',
-  price: '£9.99',
-  image: '/twist-chamber-glass-pipe.png',
-  weight: 0.10,
-  details: [
-    'Glass tube with twist-feed mechanism',
-    'Rotating internal spiral',
-    'Reusable design',
-    'Easy to disassemble for cleaning',
-    'Compact portable size'
-  ]
-},
-{
-  id: 36,
-  name: 'Stainless Steel Compression Press',
-  category: 'Accessories',
-  price: '£14.99',
-  image: '/stainless-steel-compression-press.png',
-  weight: 0.25,
-  details: [
-    'Heavy-duty stainless steel construction',
-    'Threaded compression mechanism',
-    'Compact portable design',
-    'Precision machined finish',
-    'Durable reusable tool'
-  ]
-},
+}
 ]
 
 const categories = ['All', 'Glass Water Pipes', 'Accessories', 'Grinders', 'Papers']
@@ -694,7 +588,6 @@ const [currentPage, setCurrentPage] = useState('home')
 })
   const [cartOpen, setCartOpen] = useState(false)
 const [addedMessage, setAddedMessage] = useState(null)
-const [selectedOption, setSelectedOption] = useState('')
 useEffect(() => {
   localStorage.setItem('smokologyCart', JSON.stringify(cart))
 }, [cart])
@@ -719,14 +612,7 @@ const openCart = () => {
         )
       }
 
-return [
-  ...currentCart,
-  {
-    ...product,
-    quantity: 1,
-    selectedOption
-  }
-]
+return [...currentCart, { ...product, quantity: 1 }]
 })
 
 setAddedMessage(product)
@@ -831,54 +717,16 @@ onClick={() => {
               <p className="price">{selectedProduct.price}</p>
 
               <h3>Specifications</h3>
-<ul>
-  {selectedProduct.details.map((detail) => (
-    <li key={detail}>{detail}</li>
-  ))}
-</ul>
+              <ul>
+                {selectedProduct.details.map((detail) => (
+                  <li key={detail}>{detail}</li>
+                ))}
+              </ul>
 
-{selectedProduct.options && (
-  <div style={{ marginBottom: '20px' }}>
-    <label>
-      {selectedProduct.options.label}
-    </label>
-
-    <select
-      value={selectedOption}
-      onChange={(event) => setSelectedOption(event.target.value)}
-      style={{
-        display: 'block',
-        marginTop: '8px',
-        padding: '10px',
-        width: '100%'
-      }}
-    >
-      <option value="">
-        Select {selectedProduct.options.label}
-      </option>
-
-      {selectedProduct.options.values.map((option) => (
-        <option key={option} value={option}>
-          {option}
-        </option>
-      ))}
-    </select>
-  </div>
-)}
-
-<div className="detail-button-row">
-  <button
-  onClick={() => {
-    if (selectedProduct.options && !selectedOption) {
-      alert(`Please select a ${selectedProduct.options.label}`)
-      return
-    }
-
-    addToCart(selectedProduct)
-  }}
->
-  Add to Basket
-</button>
+              <div className="detail-button-row">
+  <button onClick={() => addToCart(selectedProduct)}>
+    Add to Basket
+  </button>
 
   <a
     href="https://www.instagram.com/edinburghsmokeshop"
@@ -1110,11 +958,6 @@ Order Notes: ${orderNotes}
 
                 <div>
                   <h4>{item.name}</h4>
-
-{item.selectedOption && (
-  <p>Flavour: {item.selectedOption}</p>
-)}
-
                   <p>{item.price}</p>
 
                   <div className="quantity-row">
