@@ -288,6 +288,190 @@ const products = [
     'Enhanced filtration and cooling',
     'Wide stable base',
     'Premium Chongz glass construction',
+    'Suitable for adult smoking accessories collections',
+'Available in Blue, Pink and Amber'
+  ]
+},
+{
+  id: 18,
+  name: 'Chongz Triple Honeycomb Percolator Glass Water Pipe Pink',
+  category: 'Glass Water Pipes',
+  price: '£59.99',
+  image: '/triple-honeycomb-pink.png',
+  details: [
+    'Triple honeycomb disc percolator system',
+    'Pink accented borosilicate glass',
+    'Straight tube design',
+    'Removable glass bowl included',
+    'Enhanced filtration and cooling',
+    'Wide stable base',
+    'Premium Chongz glass construction',
+    'Suitable for adult smoking accessories collections',
+    'Available in Blue, Pink and Amber'
+  ]
+},
+{
+  id: 19,
+  name: 'Chongz Triple Honeycomb Percolator Glass Water Pipe Amber',
+  category: 'Glass Water Pipes',
+  price: '£59.99',
+  image: '/triple-honeycomb-amber.png',
+  details: [
+    'Triple honeycomb disc percolator system',
+    'Amber accented borosilicate glass',
+    'Straight tube design',
+    'Removable glass bowl included',
+    'Enhanced filtration and cooling',
+    'Wide stable base',
+    'Premium Chongz glass construction',
+    'Suitable for adult smoking accessories collections',
+    'Available in Blue, Pink and Amber'
+  ]
+},
+{
+  id: 20,
+  name: 'Chongz V For Victory Chromed Blue Glass Water Pipe 40cm',
+  category: 'Glass Water Pipes',
+  price: '£94.99',
+  image: '/v-for-victory-blue.png',
+  details: [
+    'Height: 40cm',
+    'Chromed blue finish',
+    'Distinctive V-shaped beaker base',
+    'Straight tube design',
+    'Removable glass bowl included',
+    'Durable borosilicate glass',
+    'Wide stable base',
+    'Premium Chongz glass construction',
+    'Suitable for adult smoking accessories collections'
+  ]
+},
+{
+  id: 21,
+  name: 'Chongz Dead Head Glass Water Pipe Blue',
+  category: 'Glass Water Pipes',
+  price: '£49.99',
+  image: '/dead-head-blue.png',
+  details: [
+    'Dead Head graphic design',
+    'Blue accented glass',
+    'Beaker style base',
+    '9mm glass construction',
+    'Removable glass bowl included',
+    'Wide stable base',
+    'Premium Chongz glassware',
+    'Suitable for adult smoking accessories collections',
+    'Also available in Pink, Green and White'
+  ]
+},
+{
+  id: 22,
+  name: 'Chongz Dead Head Glass Water Pipe Pink',
+  category: 'Glass Water Pipes',
+  price: '£49.99',
+  image: '/dead-head-pink.png',
+  details: [
+    'Dead Head graphic design',
+    'Pink accented glass',
+    'Beaker style base',
+    '9mm glass construction',
+    'Removable glass bowl included',
+    'Wide stable base',
+    'Premium Chongz glassware',
+    'Suitable for adult smoking accessories collections',
+    'Also available in Blue, Green and White'
+  ]
+},
+{
+  id: 23,
+  name: 'Chongz Dead Head Glass Water Pipe Green',
+  category: 'Glass Water Pipes',
+  price: '£49.99',
+  image: '/dead-head-green.png',
+  details: [
+    'Dead Head graphic design',
+    'Green accented glass',
+    'Beaker style base',
+    '9mm glass construction',
+    'Removable glass bowl included',
+    'Wide stable base',
+    'Premium Chongz glassware',
+    'Suitable for adult smoking accessories collections',
+    'Also available in Blue, Pink and White'
+  ]
+},
+{
+  id: 24,
+  name: 'Chongz Dead Head Glass Water Pipe White',
+  category: 'Glass Water Pipes',
+  price: '£49.99',
+  image: '/dead-head-white.png',
+  details: [
+    'Dead Head graphic design',
+    'White accented glass',
+    'Beaker style base',
+    '9mm glass construction',
+    'Removable glass bowl included',
+    'Wide stable base',
+    'Premium Chongz glassware',
+    'Suitable for adult smoking accessories collections',
+    'Also available in Blue, Pink and Green'
+  ]
+},
+{
+  id: 25,
+  name: 'Chongz 2 System Glass Water Pipe Green',
+  category: 'Glass Water Pipes',
+  price: '£44.99',
+  image: '/2-system-green.png',
+  details: [
+    'Dual chamber filtration system',
+    'Blue accented borosilicate glass',
+    'Compact straight body design',
+    'Removable glass bowl included',
+    'Built-in percolator filtration',
+    'Premium Chongz glass construction',
+    'Wide stable base',
+    'Enhanced cooling and smoother draws',
+    'Suitable for adult smoking accessories collections',
+    'Also available in Pink'
+  ]
+},
+{
+  id: 26,
+  name: 'Chongz 2 System Glass Water Pipe Pink',
+  category: 'Glass Water Pipes',
+  price: '£44.99',
+  image: '/2-system-pink.png',
+  details: [
+    'Dual chamber filtration system',
+    'Pink accented borosilicate glass',
+    'Compact straight body design',
+    'Removable glass bowl included',
+    'Built-in percolator filtration',
+    'Premium Chongz glass construction',
+    'Wide stable base',
+    'Enhanced cooling and smoother draws',
+    'Suitable for adult smoking accessories collections',
+    'Also available in Green'
+  ]
+},
+{
+  id: 27,
+  name: 'Cookies x G Pen Nova Vaporizer Blue',
+  category: 'Accessories',
+  price: '£39.99',
+  image: '/cookies-gpen-nova-blue.png',
+  details: [
+    'Cookies x G Pen collaboration',
+    'Portable vaporizer device',
+    'Full ceramic atomizer',
+    'Variable voltage settings',
+    '300mAh rechargeable battery',
+    'Micro USB charging',
+    'Compact pocket-sized design',
+    'Easy-clean mouthpiece system',
+    'Premium blue finish',
     'Suitable for adult smoking accessories collections'
   ]
 }
@@ -297,6 +481,29 @@ const categories = ['All', 'Glass Water Pipes', 'Accessories', 'Grinders', 'Pape
 
 export default function App() {
   const [selectedProduct, setSelectedProduct] = useState(null)
+const [productScrollPosition, setProductScrollPosition] = useState(0)
+
+useEffect(() => {
+  if (selectedProduct) {
+    window.scrollTo(0, 0)
+  }
+}, [selectedProduct])
+useEffect(() => {
+  const handleBackButton = () => {
+    if (selectedProduct) {
+      setSelectedProduct(null)
+      setTimeout(() => {
+        window.scrollTo(0, productScrollPosition)
+      }, 0)
+    }
+  }
+
+  window.addEventListener('popstate', handleBackButton)
+
+  return () => {
+    window.removeEventListener('popstate', handleBackButton)
+  }
+}, [selectedProduct, productScrollPosition])
   const [selectedCategory, setSelectedCategory] = useState('All')
 const [currentPage, setCurrentPage] = useState('home')
   const [cart, setCart] = useState(() => {
@@ -416,7 +623,12 @@ onClick={() => {
 
 
         <main className="product-page">
-          <button onClick={() => setSelectedProduct(null)}>
+          <button onClick={() => {
+  setSelectedProduct(null)
+  setTimeout(() => {
+    window.scrollTo(0, productScrollPosition)
+  }, 0)
+}}>
             ← Back to products
           </button>
 
@@ -554,15 +766,27 @@ onClick={() => {
                 className="product-photo"
                 src={product.image}
                 alt={product.name}
-                onClick={() => setSelectedProduct(product)}
+                onClick={() => {
+  setProductScrollPosition(window.scrollY)
+  window.history.pushState({ productOpen: true }, '', window.location.href)
+  setSelectedProduct(product)
+}}
               />
 
               <div className="product-info">
                 <p className="brand-tag">{product.category}</p>
-                <h3 onClick={() => setSelectedProduct(product)}>{product.name}</h3>
+                <h3 onClick={() => {
+  setProductScrollPosition(window.scrollY)
+  window.history.pushState({ productOpen: true }, '', window.location.href)
+  setSelectedProduct(product)
+}}>{product.name}</h3>
                 <p className="price">{product.price}</p>
 
-                <button onClick={() => setSelectedProduct(product)}>
+                <button onClick={() => {
+  setProductScrollPosition(window.scrollY)
+  window.history.pushState({ productOpen: true }, '', window.location.href)
+  setSelectedProduct(product)
+}}>
                   View Details
                 </button>
 
