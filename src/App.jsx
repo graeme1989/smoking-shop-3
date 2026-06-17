@@ -143,7 +143,6 @@ const products = [
     'Stable rounded base',
     'Includes glass accessories',
     'Durable Chongz design',
-    'Suitable for dry herb use'
   ]
 },
 {
@@ -526,7 +525,6 @@ const products = [
     'Compact pocket-sized design',
     'Easy-clean mouthpiece system',
     'Premium blue finish',
-    'Suitable for adult smoking accessories collections'
   ]
 },
 {
@@ -534,7 +532,7 @@ const products = [
   name: 'Luxe Glass Kingsize Papers',
   category: 'Papers',
   price: '£0.99',
-  stock: 100,
+  stock: 38,
   weight: 0.01,
   image: '/luxe-glass-kingsize-papers.png',
   details: [
@@ -543,15 +541,14 @@ const products = [
     'Transparent paper design',
     'Slow and even burn',
     'Original Luxe Glass papers',
-    'Compact kingsize booklet'
   ]
 },
 {
   id: 29,
-  name: 'RAW Organic Hemp Kingsize Slim Papers',
+  name: 'RAW Organic Kingsize Slim Papers',
   category: 'Papers',
   price: '£1.29',
-  stock: 100,
+  stock: 134,
   weight: 0.01,
   image: '/raw-organic-hemp-kingsize-slim.png',
   details: [
@@ -567,8 +564,8 @@ const products = [
   id: 30,
   name: 'RAW Classic Kingsize Slim Papers',
   category: 'Papers',
-  price: '£1.19',
-  stock: 100,
+  price: '£1.29',
+  stock: 0,
   weight: 0.01,
   image: '/raw-classic-kingsize-slim.png',
   details: [
@@ -582,7 +579,7 @@ const products = [
 },
 {
   id: 31,
-  name: 'Royal Blunts Hemparillo Hemp Wraps',
+  name: 'Royal Hemparillo Wraps',
   category: 'Papers',
   price: '£1.99',
   stock: 100,
@@ -590,50 +587,49 @@ const products = [
   weight: 0.02,
   options: {
     label: 'Flavour',
-    values: [
-      'Strawberry',
-      'Mango Haze',
-      'Bubble Gum',
-      'Grape',
-      'Sweets',
-      'Berries',
-      'Cali Fire',
-      'Purple Haze'
-    ]
+values: [
+  { name: 'Strawberry', stock: 13 },
+  { name: 'Mango Haze', stock: 12 },
+  { name: 'Bubble Gum', stock: 13 },
+  { name: 'Grape', stock: 0 },
+  { name: 'Sweets', stock: 11 },
+  { name: 'Berries', stock: 12 },
+  { name: 'Cali Fire', stock: 12 },
+  { name: 'Purple Haze', stock: 14 }
+]
   },
   details: [
     'Tobacco-free hemp wraps',
-    '4 hemp wraps per pack',
-    'Royal Blunts Hemparillo range',
-    'All natural hemp wraps',
-    'Available in multiple flavours'
+    '4 wraps per pack',
+    'Royal Hemparillo range',
+    'All natural wraps',
+    'Available in multiple flavours',
+'our hemp wraps are made from industrial hemp fibre and do not contain CBD, THC or cannabinoids'
   ]
 },
 {
   id: 32,
   name: 'Cyclones Pre-Rolled Cone',
   category: 'Papers',
-  price: '£1.99',
+  price: '£0.99',
   stock: 100,
   image: '/cyclones-cone-blunts.png',
   weight: 0.02,
   options: {
     label: 'Flavour',
     values: [
-      'Blueberry',
-      'Peach',
-      'Grape',
-      'Caffeine',
-      'Black Widow',
-      'Cherry',
-      'Strawberry',
-      'White Chocolate',
-      'Rockstar',
-      'Purple Haze'
-    ]
+  { name: 'Blueberry', stock: 23 },
+  { name: 'Peach', stock: 21 },
+  { name: 'Grape', stock: 23 },
+  { name: 'Rock Star', stock: 23 },
+  { name: 'Black Widow', stock: 20 },
+  { name: 'Cherry', stock: 19 },
+  { name: 'Strawberry', stock: 23 },
+  { name: 'White Chocolate', stock: 20 },
+]
   },
   details: [
-    'Pre-rolled cone blunt',
+    'Pre-rolled cone',
     'Ready to fill',
     'Slow burning wrap',
     'Available in multiple flavours',
@@ -644,16 +640,16 @@ const products = [
   id: 33,
   name: "Juicy Jay's Jones Cones",
   category: 'Papers',
-  price: '£1.99',
+  price: '£0.99',
   stock: 100,
   image: '/juicy-jays-jones-cones.png',
   weight: 0.02,
   options: {
     label: 'Flavour',
-    values: [
-      'Blackberry Jones',
-      'Watermelon Jones'
-    ]
+values: [
+  { name: 'Blackberry Jones', stock: 16 },
+  { name: 'Watermelon Jones', stock: 15 }
+]
   },
   details: [
     'Pre-rolled flavoured cones',
@@ -673,19 +669,20 @@ const products = [
   weight: 0.02,
   options: {
     label: 'Flavour',
-    values: [
-      'Red Alert',
-      'Blue',
-      'Mean Green',
-      'Purple'
-    ]
+ values: [
+  { name: 'Red Alert', stock: 9 },
+  { name: 'Blue', stock: 9 },
+  { name: 'Mean Green', stock: 6 },
+  { name: 'Purple', stock: 10 }
+]
   },
   details: [
-    'Hemp cone blunt',
+    'Hemp cone',
     'Pre-rolled cone',
     'Ready to fill',
     'Natural hemp wrap',
-    'Available in multiple flavours'
+    'Available in multiple flavours',
+'our hemp wraps are made from industrial hemp fibre and do not contain CBD, THC or cannabinoids'
   ]
 },
 {
@@ -726,6 +723,7 @@ const categories = ['All', 'Glass Water Pipes', 'Accessories', 'Grinders', 'Pape
 
 export default function App() {
   const [selectedProduct, setSelectedProduct] = useState(null)
+
 const [productScrollPosition, setProductScrollPosition] = useState(0)
 
 useEffect(() => {
@@ -735,12 +733,13 @@ useEffect(() => {
 }, [selectedProduct])
 useEffect(() => {
   const handleBackButton = () => {
-    if (selectedProduct) {
-      setSelectedProduct(null)
-      setTimeout(() => {
-        window.scrollTo(0, productScrollPosition)
-      }, 0)
-    }
+ if (selectedProduct) {
+  localStorage.removeItem('selectedProductId')
+  setSelectedProduct(null)
+  setTimeout(() => {
+    window.scrollTo(0, productScrollPosition)
+  }, 0)
+}
   }
 
   window.addEventListener('popstate', handleBackButton)
@@ -921,8 +920,25 @@ onClick={() => {
 
 <p><strong>Weight:</strong> {selectedProduct.weight}kg</p>
 
-{selectedProduct.stock > 0 ? (
-  <p><strong>In Stock:</strong> {selectedProduct.stock}</p>
+{(
+  selectedProduct.options
+    ? selectedOption
+      ? selectedProduct.options.values.find(
+          (option) => option.name === selectedOption
+        )?.stock
+      : 1
+    : selectedProduct.stock
+) > 0 ? (
+  <p>
+    <strong>In Stock:</strong>{' '}
+    {selectedProduct.options && selectedOption
+      ? selectedProduct.options.values.find(
+          (option) => option.name === selectedOption
+        )?.stock
+      : selectedProduct.options
+  ? 'Select a flavour'
+  : selectedProduct.stock}
+  </p>
 ) : (
   <p><strong>Out of Stock</strong></p>
 )}
@@ -948,16 +964,22 @@ onClick={() => {
       </option>
 
       {selectedProduct.options.values.map((option) => (
-        <option key={option} value={option}>
-          {option}
-        </option>
-      ))}
+  <option key={option.name} value={option.name}>
+    {option.name}
+  </option>
+))}
     </select>
   </div>
 )}
 
 <div className="detail-button-row">
-{selectedProduct.stock > 0 ? (
+{(
+  selectedProduct.options && selectedOption
+    ? selectedProduct.options.values.find(
+        (option) => option.name === selectedOption
+      )?.stock
+    : selectedProduct.stock
+) > 0 ? (
   <button
     onClick={() => {
       if (selectedProduct.options && !selectedOption) {
@@ -1091,9 +1113,9 @@ onClick={() => {
                 src={product.image}
                 alt={product.name}
                 onClick={() => {
-  setProductScrollPosition(window.scrollY)
-  window.history.pushState({ productOpen: true }, '', window.location.href)
-  setSelectedProduct(product)
+setProductScrollPosition(window.scrollY)
+window.history.pushState({ productOpen: true }, '', window.location.href)
+setSelectedProduct(product)
 }}
               />
 
@@ -1123,38 +1145,73 @@ onClick={() => {
         </div>
       </main>
 
-      <footer className="site-footer">
-        <button onClick={() => setCurrentPage('privacy')}>
-          Privacy Policy
-        </button>
+ <footer className="site-footer">
+  <button
+    onClick={() => {
+      setCurrentPage('privacy')
+      window.scrollTo(0, 0)
+    }}
+  >
+    Privacy Policy
+  </button>
 
-<button onClick={() => setCurrentPage('about')}>
-  About Us
-</button>
+  <button
+    onClick={() => {
+      setCurrentPage('about')
+      window.scrollTo(0, 0)
+    }}
+  >
+    About Us
+  </button>
 
-<button onClick={() => setCurrentPage('contact')}>
-  Contact Us
-</button>
+  <button
+    onClick={() => {
+      setCurrentPage('contact')
+      window.scrollTo(0, 0)
+    }}
+  >
+    Contact Us
+  </button>
 
-        <button onClick={() => setCurrentPage('terms')}>
-          Terms & Conditions
-        </button>
+  <button
+    onClick={() => {
+      setCurrentPage('terms')
+      window.scrollTo(0, 0)
+    }}
+  >
+    Terms & Conditions
+  </button>
 
-        <button onClick={() => setCurrentPage('returns')}>
-          Returns & Refunds
-        </button>
+  <button
+    onClick={() => {
+      setCurrentPage('returns')
+      window.scrollTo(0, 0)
+    }}
+  >
+    Returns & Refunds
+  </button>
 
-        <button onClick={() => setCurrentPage('delivery')}>
-          Delivery Information
-        </button>
+  <button
+    onClick={() => {
+      setCurrentPage('delivery')
+      window.scrollTo(0, 0)
+    }}
+  >
+    Delivery Information
+  </button>
 
-        <button onClick={() => setCurrentPage('age')}>
-          Age Restriction Policy
-        </button>
+  <button
+    onClick={() => {
+      setCurrentPage('age')
+      window.scrollTo(0, 0)
+    }}
+  >
+    Age Restriction Policy
+  </button>
 
-        <p>© 2026 Smokology Scotland</p>
-        <p>smokeshop154@gmail.com</p>
-        </footer>
+  <p>© 2026 Smokology Scotland</p>
+  <p>smokeshop154@gmail.com</p>
+</footer>
     </>
   )}
     </div>
@@ -1375,12 +1432,13 @@ function LegalPage({ currentPage, setCurrentPage }) {
 age: {
   title: 'Age Restriction Policy',
   content: [
-    'Smokology Scotland sells adult smoking accessories only.',
+    'Smokology Scotland sells legal smoking accessories only. We do not sell tobacco products, nicotine products, CBD products, THC products, cannabinoids, cannabis, controlled substances, or vaping products.',
     'You must be 18 or over to use this website, place an order, or purchase any product.',
     'By placing an order, you confirm that you are at least 18 years old.',
     'We reserve the right to request proof of age before accepting or completing an order.',
     'Orders may be refused or cancelled if we believe the customer is under 18 or cannot provide suitable age verification.',
-    'Products must not be purchased for anyone under the age of 18.'
+    'Products must not be purchased for anyone under the age of 18.',
+'Any hemp-based products sold on this website are made from industrial hemp fibre and do not contain CBD, THC, cannabinoids, nicotine, tobacco, or controlled substances.'
   ]
 },
 
