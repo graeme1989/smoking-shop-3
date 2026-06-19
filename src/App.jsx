@@ -720,7 +720,7 @@ values: [
 {
   id: 999,
   name: "Clipper Day of the Dead Skull Lighter",
-  price: 1.99,
+  price: "£1.99",
   image: "/clipper-day-of-the-dead-skull.jpg",
   category: "Accessories",
   stock: 20,
@@ -744,7 +744,7 @@ details: [
 {
   id: 1000,
   name: "HoneyPuff 4 Part Metal Grinder",
-  price: 23.99,
+  price: "£23.99",
   image: "/honeypuff-4-part-metal-grinder.jpg",
   category: "Grinders",
   stock: 25,
@@ -766,6 +766,108 @@ details: [
     "Durable metal construction",
     "Smooth turning action",
     "Available in 5 colours"
+  ]
+},
+{
+  id: 1001,
+  name: "Skittles ReStash Jar",
+  price: "£44.99",
+  image: "/skittles-restash-jar.jpg",
+  category: "Accessories",
+  stock: 0,
+  weight: 0.12,
+  options: {
+    label: "Colour",
+    values: [
+      { name: "Red", stock: 1 },
+      { name: "Purple", stock: 1 },
+      { name: "Yellow", stock: 1 }
+    ]
+  },
+  details: [
+    "Airtight UV protection ReStash jar",
+    "Screw top lid",
+    "Compact storage jar",
+    "Available in 3 colours"
+  ]
+},
+{
+  id: 1002,
+  name: "Alien Labs ReStash Jar",
+  price: "£44.99",
+  image: "/alien-labs-restash-jar.jpg",
+  category: "Accessories",
+  stock: 0,
+  weight: 0.12,
+  options: {
+    label: "Colour",
+    values: [
+      { name: "Black/White", stock: 1 },
+      { name: "Black/Pink", stock: 1 },
+      { name: "Blue/Green/White", stock: 1 }
+    ]
+  },
+  details: [
+    "Airtight UV protection ReStash jar",
+    "Screw top lid",
+    "Compact storage jar",
+    "Available in 3 designs"
+  ]
+},
+
+{
+  id: 1002,
+  name: "Cookies Glow Tray",
+  price: "£44.99",
+  image: "/cookies-glow-tray.jpg",
+  category: "Accessories",
+  stock: 0,
+  weight: 0.45,
+  options: {
+    label: "Colour",
+    values: [
+      { name: "Red", stock: 4 },
+      { name: "White", stock: 2 },
+      { name: "Green", stock: 4 },
+      { name: "Black", stock: 0 },
+      { name: "Blue", stock: 4 },
+      { name: "Purple", stock: 4 }
+    ]
+  },
+  details: [
+  "Size: 28cm x 21.5cm x 3cm",
+  "LED illuminated Cookies tray",
+  "Rechargeable glow function",
+  "Raised edges help prevent spills",
+  "Durable lightweight construction",
+  "Available in multiple colours"
+]
+},
+{
+  id: 1003,
+  name: "Runtz Glow Tray",
+  price: "44.99",
+  image: "/runtz-glow-tray.jpg",
+  category: "Accessories",
+  stock: 0,
+  weight: 0.45,
+  options: {
+    label: "Colour",
+    values: [
+      { name: "Red", stock: 2 },
+      { name: "Blue", stock: 1 },
+      { name: "Green", stock: 2 },
+      { name: "White", stock: 1 },
+      { name: "Purple", stock: 2 }
+    ]
+  },
+  details: [
+    "Size: 28cm x 21.5cm x 3cm",
+    "LED illuminated Runtz tray",
+    "Rechargeable glow function",
+    "Raised edges help prevent spills",
+    "Durable lightweight construction",
+    "Available in multiple colours"
   ]
 }
 ]
@@ -987,7 +1089,7 @@ onClick={() => {
           (option) => option.name === selectedOption
         )?.stock
       : selectedProduct.options
-  ? 'Select a flavour'
+  ? `Select a ${selectedProduct.options.label.toLowerCase()}`
   : selectedProduct.stock}
   </p>
 ) : (
