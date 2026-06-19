@@ -716,6 +716,57 @@ values: [
     'Precision machined finish',
     'Durable reusable tool'
   ]
+},
+{
+  id: 999,
+  name: "Clipper Day of the Dead Skull Lighter",
+  price: 1.99,
+  image: "/clipper-day-of-the-dead-skull.jpg",
+  category: "Accessories",
+  stock: 20,
+  weight: 0.03,
+  options: {
+  label: 'Colour',
+  values: [
+    { name: 'Red', stock: 8 },
+    { name: 'Black', stock: 6 },
+    { name: 'Purple', stock: 4 },
+    { name: 'Green', stock: 8 }
+  ]
+},
+details: [
+  'Official Clipper lighter',
+  'Refillable gas system',
+  'Replaceable flint',
+  'Available in 4 colours'
+]
+},
+{
+  id: 1000,
+  name: "HoneyPuff 4 Part Metal Grinder",
+  price: 23.99,
+  image: "/honeypuff-4-part-metal-grinder.jpg",
+  category: "Grinders",
+  stock: 25,
+  weight: 0.16,
+  description:
+    "HoneyPuff 4 part metal grinder with a strong, durable build and smooth turning action. Available in five colours.",
+  options: {
+    label: "Colour",
+    values: [
+      { name: "Green", stock: 2 },
+      { name: "Silver", stock: 4 },
+      { name: "Gold", stock: 0 },
+      { name: "Blue", stock: 2 },
+      { name: "Purple", stock: 1 }
+    ]
+  },
+  details: [
+    "4 part metal grinder",
+    "Durable metal construction",
+    "Smooth turning action",
+    "Available in 5 colours"
+  ]
 }
 ]
 
