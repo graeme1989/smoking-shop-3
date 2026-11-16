@@ -1,6 +1,6 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { products } from '../src/products.js'
-import { catalogueCategories, categoryMetadata, productMetadata, productPath } from '../src/product-pages.js'
+import { catalogueCategories, categoryMetadata, productMetadata, productPath, relatedProducts } from '../src/product-pages.js'
 
 const html = await readFile('dist/index.html', 'utf8')
 const escape = (value) => String(value).replace(/[&<>"']/g, (character) =>
@@ -21,7 +21,8 @@ const categories = catalogueCategories.filter(({ heading }) => heading)
 
 for (const product of products) {
   const category = categories.find(({ name }) => name === product.category)
-  const detail = `<main><h1>${escape(product.name)}</h1><p>${escape(product.price)}</p><ul>${product.details.map((item) => `<li>${escape(item)}</li>`).join('')}</ul><a href="${category.path}">Browse ${escape(category.heading)}</a></main>`
+  const related = relatedProducts(product, products).map((item) => `<li><a href="${productPath(item)}">${escape(item.name)}</a></li>`).join('')
+  const detail = `<main><h1>${escape(product.name)}</h1><p>${escape(product.price)}</p><ul>${product.details.map((item) => `<li>${escape(item)}</li>`).join('')}</ul><a href="${category.path}">Browse ${escape(category.heading)}</a><section><h2>Related products</h2><ul>${related}</ul></section></main>`
   await writePage(productPath(product), productMetadata(product), detail)
 }
 

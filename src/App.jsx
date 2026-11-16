@@ -1,6 +1,6 @@
 import { analyticsPreference, measurementId, setAnalyticsPreference, startAnalytics, trackBasketAdd, trackEmailOrderClick, trackPage } from './analytics.js'
 import { products } from './products.js'
-import { catalogueCategories, categoryMetadata, productPath, productMetadata } from './product-pages.js'
+import { catalogueCategories, categoryMetadata, productPath, productMetadata, relatedProducts } from './product-pages.js'
 import { FREE_DELIVERY_SUBTOTAL_PENCE, getUkPostage } from './postage.js'
 import './style.css'
 import React, { useEffect, useState } from 'react'
@@ -310,6 +310,14 @@ onClick={openCart}
               </p>
             </div>
           </div>
+          <section aria-labelledby="related-products-heading">
+            <h2 id="related-products-heading">Related products</h2>
+            <ul>
+              {relatedProducts(selectedProduct, products).map((product) => (
+                <li key={product.id}><a href={productPath(product)}>{product.name}</a></li>
+              ))}
+            </ul>
+          </section>
         </main>
         {analyticsControls}
       </div>

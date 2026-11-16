@@ -11,11 +11,30 @@ export function productMetadata(product) {
     canonical: origin + '/',
   }
 
+  const model = product.name === product.name.toUpperCase()
+    ? product.name.toLowerCase().replace(/\b[a-z]/g, (letter) => letter.toUpperCase()).replace(/(\d+)Cm\b/g, '$1cm')
+    : product.name
+  const name = product.id === 1 ? `${model} 35cm Glass Water Pipe` : model
+  const specifications = product.details
+    .filter((detail) => /^(Height|Size|Material|Glass thickness|Colour|Percolator): /.test(detail))
+    .filter((detail) => !name.toLowerCase().includes(detail.split(': ')[1].toLowerCase()))
+    .slice(0, 2)
   return {
-    title: `${product.name} | Smokology Scotland`,
-    description: `${product.name} from Smokology Scotland. ${product.details.slice(0, 2).join('. ')}. ${product.price}.`,
+    title: `${name} | Smokology Scotland`,
+    description: [`${name}.`, ...specifications.map((detail) => `${detail}.`), 'UK delivery from Smokology Scotland.'].join(' '),
     canonical: origin + productPath(product),
   }
+}
+
+export function relatedProducts(product, catalogue) {
+  const brand = product.name.split(' ')[0].toLowerCase()
+  const matches = catalogue.filter((candidate) => candidate.id !== product.id && candidate.category === product.category)
+  const inStock = (candidate) => candidate.options
+    ? candidate.options.values.some(({ stock }) => stock > 0)
+    : candidate.stock > 0
+  const score = (candidate) =>
+    2 * Number(inStock(candidate)) + Number(candidate.name.toLowerCase().startsWith(brand + ' '))
+  return matches.sort((a, b) => score(b) - score(a)).slice(0, 3)
 }
 
 export const catalogueCategories = [
