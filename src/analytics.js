@@ -1,4 +1,4 @@
-export const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID?.trim()
+export const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID?.trim() || (import.meta.env.PROD ? 'G-YLN5Y6LPB0' : '')
 const preferenceKey = 'smokology-analytics'
 let lastPage
 
@@ -46,4 +46,9 @@ export function trackBasketAdd(product, option) {
   if (!window.gtag || analyticsPreference() !== 'allow') return
   const item = analyticsItem(product, option)
   window.gtag('event', 'add_to_cart', { currency: 'GBP', value: item.price, items: [item] })
+}
+
+export function trackEmailOrderClick(needsQuote) {
+  if (!window.gtag || analyticsPreference() !== 'allow') return
+  window.gtag('event', 'email_order_click', { order_type: needsQuote ? 'delivery_quote' : 'order' })
 }

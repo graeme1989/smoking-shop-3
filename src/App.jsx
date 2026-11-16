@@ -1,4 +1,4 @@
-import { analyticsPreference, measurementId, setAnalyticsPreference, startAnalytics, trackBasketAdd, trackPage } from './analytics.js'
+import { analyticsPreference, measurementId, setAnalyticsPreference, startAnalytics, trackBasketAdd, trackEmailOrderClick, trackPage } from './analytics.js'
 import { products } from './products.js'
 import { productPath, productMetadata } from './product-pages.js'
 import { FREE_DELIVERY_SUBTOTAL_PENCE, getUkPostage } from './postage.js'
@@ -382,7 +382,7 @@ onClick={openCart}
 
       <main className="products-section">
         <div>
-          <h1>Products</h1>
+          <h1>Glass Water Pipes, Grinders &amp; Rolling Papers</h1>
           <p style={{ color: '#cbd5e1', fontSize: '20px', marginBottom: '30px' }}>
             Add products to your basket and email your order.
           </p>
@@ -643,6 +643,7 @@ function CartPanel({
             <a
               href={`mailto:smokeshop154@gmail.com?subject=${encodeURIComponent('New Smokology Scotland Order')}&body=${email}`}
               className="button checkout-button"
+              onClick={() => trackEmailOrderClick(needsQuote)}
             >
               {needsQuote ? 'Request Delivery Quote' : 'Email Order'}
             </a>
