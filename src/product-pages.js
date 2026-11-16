@@ -17,3 +17,19 @@ export function productMetadata(product) {
     canonical: origin + productPath(product),
   }
 }
+
+export const catalogueCategories = [
+  { name: 'All', path: '/' },
+  { name: 'Glass Water Pipes', path: '/glass-water-pipes/', heading: 'Glass Water Pipes', description: 'Browse glass water pipes with UK delivery, including Chongz recycler and percolator models.' },
+  { name: 'Accessories', path: '/accessories/', heading: 'Smoking Accessories', description: 'Browse adult smoking accessories with UK delivery, including rolling trays and storage jars.' },
+  { name: 'Grinders', path: '/grinders/', heading: 'Grinders', description: 'Shop Chongz grinders and compare models, prices and stock, with UK delivery.' },
+  { name: 'Papers', path: '/rolling-papers/', heading: 'Rolling Papers', description: 'Browse rolling papers from Smokology Scotland and check available options, with UK delivery.' },
+]
+
+export function categoryMetadata(category) {
+  return {
+    title: `${category.heading} UK | Smokology Scotland`,
+    description: category.description,
+    canonical: origin + category.path,
+  }
+}

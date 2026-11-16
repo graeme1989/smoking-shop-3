@@ -1,11 +1,9 @@
 import { analyticsPreference, measurementId, setAnalyticsPreference, startAnalytics, trackBasketAdd, trackEmailOrderClick, trackPage } from './analytics.js'
 import { products } from './products.js'
-import { productPath, productMetadata } from './product-pages.js'
+import { catalogueCategories, categoryMetadata, productPath, productMetadata } from './product-pages.js'
 import { FREE_DELIVERY_SUBTOTAL_PENCE, getUkPostage } from './postage.js'
 import './style.css'
 import React, { useEffect, useState } from 'react'
-
-const categories = ['All', 'Glass Water Pipes', 'Accessories', 'Grinders', 'Papers']
 
 function productFromUrl() {
   const id = window.location.pathname.match(/^\/products\/(\d+)\/?$/)?.[1]
@@ -83,7 +81,10 @@ export default function App() {
 
   useEffect(() => {
     if (selectedProduct) window.scrollTo(0, 0)
-    const { title, description, canonical } = productMetadata(selectedProduct)
+    const category = catalogueCategories.find(({ path }) => path === window.location.pathname)
+    const { title, description, canonical } = !selectedProduct && category?.heading
+      ? categoryMetadata(category)
+      : productMetadata(selectedProduct)
     document.title = title
     document.querySelector('meta[name="description"]').content = description
     document.querySelector('link[rel="canonical"]').href = canonical
@@ -125,7 +126,8 @@ export default function App() {
     requestAnimationFrame(() => window.scrollTo(0, productScrollPosition))
   }
 
-  const [selectedCategory, setSelectedCategory] = useState('All')
+  const activeCategory = catalogueCategories.find(({ path }) => path === window.location.pathname) ?? catalogueCategories[0]
+  const selectedCategory = activeCategory.name
 const [currentPage, setCurrentPage] = useState('home')
   const [cart, setCart] = useState(readBasket)
   const [cartOpen, setCartOpen] = useState(false)
@@ -382,23 +384,25 @@ onClick={openCart}
 
       <main className="products-section">
         <div>
-          <h1>Glass Water Pipes, Grinders &amp; Rolling Papers</h1>
+          <h1>{activeCategory.heading ?? 'Glass Water Pipes, Grinders & Rolling Papers'}</h1>
+          {activeCategory.description && <p>{activeCategory.description}</p>}
           <p style={{ color: '#cbd5e1', fontSize: '20px', marginBottom: '30px' }}>
             Add products to your basket and email your order.
           </p>
         </div>
 
-        <div className="category-row">
-          {categories.map((category) => (
-            <button
-              key={category}
-              className={selectedCategory === category ? 'active-category' : 'category-button'}
-              onClick={() => setSelectedCategory(category)}
+        <nav className="category-row" aria-label="Product categories">
+          {catalogueCategories.map(({ name, path }) => (
+            <a
+              key={path}
+              href={path}
+              aria-current={selectedCategory === name ? 'page' : undefined}
+              className={selectedCategory === name ? 'button active-category' : 'button category-button'}
             >
-              {category}
-            </button>
+              {name}
+            </a>
           ))}
-        </div>
+        </nav>
 
         <div className="product-grid">
           {filteredProducts.map((product) => (
