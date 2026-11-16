@@ -430,3 +430,12 @@ footer {
 .product-info .button {
   margin-inline-end: 8px;
 }
+
+.analytics-controls {
+  padding: 16px 24px;
+  text-align: center;
+}
+
+.analytics-controls button {
+  margin: 4px;
+}

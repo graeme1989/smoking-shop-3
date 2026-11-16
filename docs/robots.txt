@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://smokologyscotland.co.uk/sitemap.xml
