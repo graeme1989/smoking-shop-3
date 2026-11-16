@@ -29,3 +29,21 @@ export function getUkPostage(cart, subtotalPence = 0) {
     service: rate ? `Royal Mail Tracked 48 · ${rate.size}` : 'Delivery quote required',
   }
 }
+
+export const deliveryPath = '/delivery-and-ordering/'
+export const deliveryTitle = 'Delivery & Ordering'
+export const deliveryDescription = 'See UK delivery estimates, free-delivery conditions and how to email an order to Smokology Scotland.'
+export const deliveryInformation = [
+  'Add your items to the basket and enter your delivery details. The basket shows an estimated postage charge based on the items and parcel size.',
+  `Royal Mail Tracked 48 estimates start at £${(smallParcel.pricePence / 100).toFixed(2)} for a small parcel up to 2 kg and £${(mediumParcelRates[0].pricePence / 100).toFixed(2)} for a medium parcel up to 2 kg. Heavier parcels may cost more.`,
+  `Free UK delivery applies to orders of £${FREE_DELIVERY_SUBTOTAL_PENCE / 100} or more that fit in one Royal Mail Tracked 48 parcel up to 2 kg.`,
+  'Choose Email Order to open a prefilled draft in your email app. Review the details and send the draft to us. If the basket cannot estimate postage, choose Request Delivery Quote instead.',
+  'We check the packed weight, dimensions and destination, then confirm delivery costs and how to pay by email before taking payment.',
+  'Orders are usually dispatched within 1–2 working days of confirmed payment. Delivery times are estimates, and we provide tracking where available.',
+]
+
+export const deliveryMetadata = {
+  title: `${deliveryTitle} | Smokology Scotland`,
+  description: deliveryDescription,
+  canonical: `https://smokologyscotland.co.uk${deliveryPath}`,
+}

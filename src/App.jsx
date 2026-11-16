@@ -1,7 +1,7 @@
 import { analyticsPreference, measurementId, setAnalyticsPreference, startAnalytics, trackBasketAdd, trackEmailOrderClick, trackPage } from './analytics.js'
 import { products } from './products.js'
 import { catalogueCategories, categoryMetadata, productPath, productMetadata, relatedProducts } from './product-pages.js'
-import { FREE_DELIVERY_SUBTOTAL_PENCE, getUkPostage } from './postage.js'
+import { FREE_DELIVERY_SUBTOTAL_PENCE, deliveryInformation, deliveryMetadata, deliveryPath, deliveryTitle, getUkPostage } from './postage.js'
 import './style.css'
 import React, { useEffect, useState } from 'react'
 
@@ -82,9 +82,10 @@ export default function App() {
   useEffect(() => {
     if (selectedProduct) window.scrollTo(0, 0)
     const category = catalogueCategories.find(({ path }) => path === window.location.pathname)
-    const { title, description, canonical } = !selectedProduct && category?.heading
-      ? categoryMetadata(category)
+    const metadata = window.location.pathname === deliveryPath ? deliveryMetadata
+      : !selectedProduct && category?.heading ? categoryMetadata(category)
       : productMetadata(selectedProduct)
+    const { title, description, canonical } = metadata
     document.title = title
     document.querySelector('meta[name="description"]').content = description
     document.querySelector('link[rel="canonical"]').href = canonical
@@ -128,7 +129,7 @@ export default function App() {
 
   const activeCategory = catalogueCategories.find(({ path }) => path === window.location.pathname) ?? catalogueCategories[0]
   const selectedCategory = activeCategory.name
-const [currentPage, setCurrentPage] = useState('home')
+const [currentPage, setCurrentPage] = useState(() => window.location.pathname === deliveryPath ? 'delivery' : 'home')
   const [cart, setCart] = useState(readBasket)
   const [cartOpen, setCartOpen] = useState(false)
 const [addedMessage, setAddedMessage] = useState(null)
@@ -487,14 +488,7 @@ onClick={openCart}
     Returns & Refunds
   </button>
 
-  <button
-    onClick={() => {
-      setCurrentPage('delivery')
-      window.scrollTo(0, 0)
-    }}
-  >
-    Delivery Information
-  </button>
+  <a className="button" href={deliveryPath}>{deliveryTitle}</a>
 
   <button
     onClick={() => {
@@ -676,7 +670,7 @@ function LegalPage({ currentPage, setCurrentPage }) {
         'When you place an order or contact us, we may collect your name, email address, phone number, delivery address, order details, and any information you choose to provide.',
         'We use this information to process orders, contact customers, arrange delivery, respond to enquiries, and keep basic business records.',
         'We do not sell your personal information.',
-        ...(measurementId ? ['With your permission, we use Google Analytics to measure visits, product views and basket activity. Use Analytics preferences to change your choice.'] : []),
+        ...(measurementId ? ['With your permission, we use Google Analytics to measure visits, product views, basket activity and clicks that open an order or delivery quote email. Use Analytics preferences to change your choice.'] : []),
         'Customer information may be shared only where necessary with delivery providers, payment providers, or where required by law.',
         'To request access, correction, or deletion of your personal information, contact us at smokeshop154@gmail.com.'
       ]
@@ -704,18 +698,7 @@ function LegalPage({ currentPage, setCurrentPage }) {
         'We may reduce a refund if an item has been used, damaged, or handled beyond what is necessary to inspect it.'
       ]
     },
-    delivery: {
-      title: 'Delivery Information',
-      content: [
-        'Delivery charges are calculated based on the total packed weight, parcel size, destination, and available Royal Mail delivery service.',
-        'Free UK delivery applies to orders of £100 or more that fit in one Royal Mail Tracked 48 parcel up to 2 kg. Delivery charges will be confirmed before payment is taken.',
-        'Larger or heavier glass items may cost more to deliver due to weight, size, and protective packaging requirements.',
-        'Orders are usually dispatched within 1–2 working days after payment is confirmed.',
-        'Delivery times are estimates and may vary depending on the delivery provider.',
-        'Tracking information will be provided where available.',
-        'Customers are responsible for providing accurate delivery details.'
-      ]
-    },
+    delivery: { title: deliveryTitle, content: deliveryInformation },
 age: {
   title: 'Age Restriction Policy',
   content: [
@@ -753,9 +736,11 @@ contact: {
 
   return (
     <main className="legal-page">
-      <button onClick={() => setCurrentPage('home')}>
-        ← Back to products
-      </button>
+      {window.location.pathname === deliveryPath ? (
+        <a className="button" href="/">← Back to products</a>
+      ) : (
+        <button onClick={() => setCurrentPage('home')}>← Back to products</button>
+      )}
 
       <h1>{page.title}</h1>
 

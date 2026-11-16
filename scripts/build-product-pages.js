@@ -2,6 +2,8 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { products } from '../src/products.js'
 import { catalogueCategories, categoryMetadata, productMetadata, productPath, relatedProducts } from '../src/product-pages.js'
 
+import { deliveryInformation, deliveryMetadata, deliveryPath, deliveryTitle } from '../src/postage.js'
+
 const html = await readFile('dist/index.html', 'utf8')
 const escape = (value) => String(value).replace(/[&<>"']/g, (character) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character])
@@ -30,9 +32,11 @@ for (const category of catalogueCategories) {
   const matching = category.heading ? products.filter(({ category: name }) => name === category.name) : products
   const links = matching.map((product) => `<li><a href="${productPath(product)}">${escape(product.name)}</a> ${escape(product.price)}</li>`).join('')
   const metadata = category.heading ? categoryMetadata(category) : productMetadata(null)
-  await writePage(category.path, metadata, `<main><h1>${escape(category.heading ?? 'Glass Water Pipes, Grinders & Rolling Papers')}</h1><p>${escape(metadata.description)}</p>${categoryLinks}<ul>${links}</ul></main>`)
+  await writePage(category.path, metadata, `<main><h1>${escape(category.heading ?? 'Glass Water Pipes, Grinders & Rolling Papers')}</h1><p>${escape(metadata.description)}</p>${categoryLinks}<p><a href="${deliveryPath}">${escape(deliveryTitle)}</a></p><ul>${links}</ul></main>`)
 }
 
-const urls = [productMetadata(null).canonical, ...categories.map((category) => categoryMetadata(category).canonical), ...products.map((product) => productMetadata(product).canonical)]
+await writePage(deliveryPath, deliveryMetadata, `<main><h1>${escape(deliveryTitle)}</h1>${deliveryInformation.map((paragraph) => `<p>${escape(paragraph)}</p>`).join('')}<a href="/">Back to products</a></main>`)
+
+const urls = [deliveryMetadata.canonical, productMetadata(null).canonical, ...categories.map((category) => categoryMetadata(category).canonical), ...products.map((product) => productMetadata(product).canonical)]
 await writeFile('dist/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((url) => `  <url><loc>${escape(url)}</loc></url>`).join('\n')}\n</urlset>\n`)
 await writeFile('dist/robots.txt', 'User-agent: *\nSitemap: https://smokologyscotland.co.uk/sitemap.xml\n')
