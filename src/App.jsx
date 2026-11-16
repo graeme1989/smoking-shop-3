@@ -1,3 +1,4 @@
+import { FREE_DELIVERY_SUBTOTAL_PENCE, getUkPostage } from './postage.js'
 import './style.css'
 import React, { useEffect, useState } from 'react'
 
@@ -113,6 +114,7 @@ const products = [
 },
 {
   id: 7,
+  minimumParcel: 'medium',
   name: "CHONGZ 'MAIN LINE' RECYCLER WATER PIPE TEAL",
   category: 'Glass Water Pipes',
   price: '£39.99',
@@ -131,6 +133,7 @@ const products = [
 },
 {
   id: 8,
+  minimumParcel: 'medium',
   name: 'CHONGZ DIG DUAL SYSTEM PERCOLATOR WATER PIPE',
   category: 'Glass Water Pipes',
   price: '£39.99',
@@ -147,6 +150,7 @@ const products = [
 },
 {
   id: 9,
+  minimumParcel: 'medium',
   name: "CHONGZ DR DEATH TRIPLE DIFFUSER WATER PIPE GREEN 52CM",
   category: 'Glass Water Pipes',
   price: '£99.99',
@@ -167,6 +171,7 @@ const products = [
 },
 {
   id: 10,
+  minimumParcel: 'medium',
   name: "CHONGZ DR DEATH TRIPLE DIFFUSER WATER PIPE MINT GREEN 52CM",
   category: 'Glass Water Pipes',
   price: '£99.99',
@@ -187,6 +192,7 @@ const products = [
 },
 {
   id: 11,
+  minimumParcel: 'medium',
   name: "CHONGZ DR DEATH TRIPLE DIFFUSER WATER PIPE BLACK 52CM",
   category: 'Glass Water Pipes',
   price: '£99.99',
@@ -207,6 +213,7 @@ const products = [
 },
 {
   id: 12,
+  minimumParcel: 'medium',
   name: "CHONGZ DR DEATH TRIPLE DIFFUSER WATER PIPE BLUE 52CM",
   category: 'Glass Water Pipes',
   price: '£99.99',
@@ -227,6 +234,7 @@ const products = [
 },
 {
   id: 13,
+  minimumParcel: 'medium',
   name: "CHONGZ DR DEATH TRIPLE DIFFUSER WATER PIPE WHITE 52CM",
   category: 'Glass Water Pipes',
   price: '£99.99',
@@ -247,6 +255,7 @@ const products = [
 },
 {
   id: 14,
+  minimumParcel: 'medium',
   name: 'CHONGZ NOVA SUPREME GLASS ICE WATERPIPE GREEN',
   category: 'Glass Water Pipes',
   price: '£49.99',
@@ -267,6 +276,7 @@ const products = [
 },
 {
   id: 15,
+  minimumParcel: 'medium',
   name: 'CHONGZ NOVA SUPREME GLASS ICE WATERPIPE PURPLE',
   category: 'Glass Water Pipes',
   price: '£49.99',
@@ -287,6 +297,7 @@ const products = [
 },
 {
   id: 16,
+  minimumParcel: 'medium',
   name: 'CHONGZ NOVA SUPREME GLASS ICE WATERPIPE PINK',
   category: 'Glass Water Pipes',
   price: '£49.99',
@@ -307,6 +318,7 @@ const products = [
 },
 {
   id: 17,
+  minimumParcel: 'medium',
   name: 'Chongz Triple Honeycomb Percolator Glass Water Pipe Blue',
   category: 'Glass Water Pipes',
   price: '£59.99',
@@ -327,6 +339,7 @@ const products = [
 },
 {
   id: 18,
+  minimumParcel: 'medium',
   name: 'Chongz Triple Honeycomb Percolator Glass Water Pipe Pink',
   category: 'Glass Water Pipes',
   price: '£59.99',
@@ -347,6 +360,7 @@ const products = [
 },
 {
   id: 19,
+  minimumParcel: 'medium',
   name: 'Chongz Triple Honeycomb Percolator Glass Water Pipe Amber',
   category: 'Glass Water Pipes',
   price: '£59.99',
@@ -367,6 +381,7 @@ const products = [
 },
 {
   id: 20,
+  minimumParcel: 'medium',
   name: 'Chongz V For Victory Chromed Blue Glass Water Pipe 40cm',
   category: 'Glass Water Pipes',
   price: '£94.99',
@@ -387,6 +402,7 @@ const products = [
 },
 {
   id: 21,
+  minimumParcel: 'medium',
   name: 'Chongz Dead Head Glass Water Pipe Blue',
   category: 'Glass Water Pipes',
   price: '£49.99',
@@ -407,6 +423,7 @@ const products = [
 },
 {
   id: 22,
+  minimumParcel: 'medium',
   name: 'Chongz Dead Head Glass Water Pipe Pink',
   category: 'Glass Water Pipes',
   price: '£49.99',
@@ -427,6 +444,7 @@ const products = [
 },
 {
   id: 23,
+  minimumParcel: 'medium',
   name: 'Chongz Dead Head Glass Water Pipe Green',
   category: 'Glass Water Pipes',
   price: '£49.99',
@@ -447,6 +465,7 @@ const products = [
 },
 {
   id: 24,
+  minimumParcel: 'medium',
   name: 'Chongz Dead Head Glass Water Pipe White',
   category: 'Glass Water Pipes',
   price: '£49.99',
@@ -467,6 +486,7 @@ const products = [
 },
 {
   id: 25,
+  minimumParcel: 'medium',
   name: 'Chongz Rola Kola Glass Water Pipe Green',
   category: 'Glass Water Pipes',
   price: '£44.99',
@@ -488,6 +508,7 @@ const products = [
 },
 {
   id: 26,
+  minimumParcel: 'medium',
   name: 'Chongz Grifter Glass Water Pipe Pink',
   category: 'Glass Water Pipes',
   price: '£44.99',
@@ -874,39 +895,96 @@ details: [
 
 const categories = ['All', 'Glass Water Pipes', 'Accessories', 'Grinders', 'Papers']
 
-export default function App() {
-  const [selectedProduct, setSelectedProduct] = useState(null)
-
-const [productScrollPosition, setProductScrollPosition] = useState(0)
-
-useEffect(() => {
-  if (selectedProduct) {
-    window.scrollTo(0, 0)
-  }
-}, [selectedProduct])
-useEffect(() => {
-  const handleBackButton = () => {
- if (selectedProduct) {
-  localStorage.removeItem('selectedProductId')
-  setSelectedProduct(null)
-  setTimeout(() => {
-    window.scrollTo(0, productScrollPosition)
-  }, 0)
+function productFromUrl() {
+  const id = new URLSearchParams(window.location.search).get('product')
+  return products.find((product) => String(product.id) === id) ?? null
 }
+
+function productUrl(product) {
+  const url = new URL(window.location.href)
+  if (product) url.searchParams.set('product', product.id)
+  else url.searchParams.delete('product')
+  return url
+}
+
+function availableStock(product, option) {
+  return product.options
+    ? product.options.values.find((value) => value.name === option)?.stock ?? 0
+    : product.stock
+}
+
+function sameBasketItem(first, second) {
+  return first.id === second.id && (first.selectedOption || '') === (second.selectedOption || '')
+}
+
+function basketQuantity(cart, product, selectedOption) {
+  return cart.find((item) => sameBasketItem(item, { ...product, selectedOption }))?.quantity ?? 0
+}
+
+function readBasket() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('smokologyCart'))
+    if (!Array.isArray(saved)) return []
+    return saved.reduce((cart, item) => {
+      const product = products.find(({ id }) => id === item?.id)
+      if (!product || !Number.isSafeInteger(item.quantity) || item.quantity <= 0) return cart
+      const selectedOption = product.options ? item.selectedOption : ''
+      const existing = basketQuantity(cart, product, selectedOption)
+      const quantity = Math.min(existing + item.quantity, availableStock(product, selectedOption))
+      if (!quantity) return cart
+      const line = { ...product, selectedOption, quantity }
+      return [...cart.filter((entry) => !sameBasketItem(entry, line)), line]
+    }, [])
+  } catch {
+    return []
+  }
+}
+
+export default function App() {
+  const [selectedProduct, setSelectedProduct] = useState(productFromUrl)
+  const [productScrollPosition, setProductScrollPosition] = useState(0)
+
+  useEffect(() => {
+    if (selectedProduct) window.scrollTo(0, 0)
+  }, [selectedProduct])
+
+  useEffect(() => {
+    const syncProduct = () => {
+      const product = productFromUrl()
+      setSelectedProduct(product)
+      setSelectedOption('')
+      setAddedMessage(null)
+      if (!product) requestAnimationFrame(() => window.scrollTo(0, productScrollPosition))
+    }
+    window.addEventListener('popstate', syncProduct)
+    return () => window.removeEventListener('popstate', syncProduct)
+  }, [productScrollPosition])
+
+  const openProduct = (event, product) => {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+    event.preventDefault()
+    setProductScrollPosition(window.scrollY)
+    window.history.pushState({ fromCatalogue: true }, '', productUrl(product))
+    setSelectedOption('')
+    setAddedMessage(null)
+    setSelectedProduct(product)
   }
 
-  window.addEventListener('popstate', handleBackButton)
-
-  return () => {
-    window.removeEventListener('popstate', handleBackButton)
+  const closeProduct = () => {
+    if (window.history.state?.fromCatalogue) {
+      window.history.back()
+      return
+    }
+    window.history.replaceState(null, '', productUrl(null))
+    setSelectedProduct(null)
+    setSelectedOption('')
+    setAddedMessage(null)
+    requestAnimationFrame(() => window.scrollTo(0, productScrollPosition))
   }
-}, [selectedProduct, productScrollPosition])
+
   const [selectedCategory, setSelectedCategory] = useState('All')
 const [currentPage, setCurrentPage] = useState('home')
-  const [cart, setCart] = useState(() => {
-  const savedCart = localStorage.getItem('smokologyCart')
-  return savedCart ? JSON.parse(savedCart) : []
-})
+  const [cart, setCart] = useState(readBasket)
   const [cartOpen, setCartOpen] = useState(false)
 const [addedMessage, setAddedMessage] = useState(null)
 const [selectedOption, setSelectedOption] = useState('')
@@ -914,68 +992,36 @@ useEffect(() => {
   localStorage.setItem('smokologyCart', JSON.stringify(cart))
 }, [cart])
   const getPriceNumber = (price) => Number(price.replace('£', ''))
-const openCart = () => {
-  setSelectedProduct(null)
-
-  setTimeout(() => {
+  const openCart = () => {
+    if (selectedProduct) closeProduct()
+    setAddedMessage(null)
     setCartOpen(true)
-  }, 0)
-}
-
-  const addToCart = (product) => {
-    setCart((currentCart) => {
-      const existingItem = currentCart.find((item) => item.id === product.id)
-
-      if (existingItem) {
-        return currentCart.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
-      }
-
-return [
-  ...currentCart,
-  {
-    ...product,
-    quantity: 1,
-    selectedOption
-  }
-]
-})
-
-setAddedMessage(product)
-
-// setTimeout(() => {
-//   setAddedMessage(null)
-// }, 4000)
-}
-  const increaseQuantity = (productId) => {
-    setCart((currentCart) =>
-      currentCart.map((item) =>
-        item.id === productId
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      )
-    )
   }
 
-  const decreaseQuantity = (productId) => {
-    setCart((currentCart) =>
-      currentCart
-        .map((item) =>
-          item.id === productId
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
-        )
-        .filter((item) => item.quantity > 0)
-    )
+  const addToCart = (product, option = '') => {
+    const line = { ...product, selectedOption: option, quantity: 1 }
+    const limit = availableStock(product, option)
+    if (basketQuantity(cart, product, option) >= limit) return
+
+    setCart((current) => {
+      const quantity = basketQuantity(current, product, option)
+      if (quantity >= limit) return current
+      if (!quantity) return [...current, line]
+      return current.map((item) => sameBasketItem(item, line)
+        ? { ...item, quantity: item.quantity + 1 }
+        : item)
+    })
+    setAddedMessage(product)
   }
 
-  const removeFromCart = (productId) => {
-    setCart((currentCart) =>
-      currentCart.filter((item) => item.id !== productId)
-    )
+  const changeQuantity = (line, change) => {
+    setCart((current) => current.map((item) => sameBasketItem(item, line)
+      ? { ...item, quantity: Math.min(item.quantity + change, availableStock(item, item.selectedOption)) }
+      : item).filter((item) => item.quantity > 0))
+  }
+
+  const removeFromCart = (line) => {
+    setCart((current) => current.filter((item) => !sameBasketItem(item, line)))
   }
 
   const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0)
@@ -985,36 +1031,10 @@ setAddedMessage(product)
     0
   )
 
-const totalWeight = cart.reduce((sum, item) => {
-  return sum + ((item.weight || 0) * item.quantity)
-}, 0)
-
-const shippingCost = totalWeight === 0 ? 0 : totalWeight <= 1 ? 3.99 : totalWeight <= 2 ? 5.99 : totalWeight <= 10 ? 7.35 : 0
-
-const shippingMethod =
-  totalWeight === 0
-    ? ""
-    : totalWeight <= 1
-      ? "Royal Mail Tracked 48 - Small Parcel"
-      : totalWeight <= 2
-        ? "Royal Mail Tracked 48 - Medium Parcel"
-        : totalWeight <= 10
-          ? "Royal Mail Tracked 48 - Large Parcel"
-          : "Please contact us for delivery quote"
-
-const orderTotal = cartTotal + shippingCost
-
   const filteredProducts =
     selectedCategory === 'All'
       ? products
       : products.filter((product) => product.category === selectedCategory)
-
-  const emailBody = cart
-    .map(
-      (item) =>
-        `${item.name} x ${item.quantity} - ${item.price}`
-    )
-    .join('%0D%0A')
 
   if (selectedProduct) {
     return (
@@ -1033,11 +1053,7 @@ const orderTotal = cartTotal + shippingCost
       </button>
 
       <button
-onClick={() => {
-  setAddedMessage(null)
-  setSelectedProduct(null)
-  setCartOpen(true)
-}}
+onClick={openCart}
       >
         View Basket
       </button>
@@ -1047,12 +1063,7 @@ onClick={() => {
 
 
         <main className="product-page">
-          <button onClick={() => {
-  setSelectedProduct(null)
-  setTimeout(() => {
-    window.scrollTo(0, productScrollPosition)
-  }, 0)
-}}>
+          <button onClick={closeProduct}>
             ← Back to products
           </button>
 
@@ -1126,30 +1137,18 @@ onClick={() => {
 )}
 
 <div className="detail-button-row">
-{(
-  selectedProduct.options && selectedOption
-    ? selectedProduct.options.values.find(
-        (option) => option.name === selectedOption
-      )?.stock
-    : selectedProduct.stock
-) > 0 ? (
-  <button
-    onClick={() => {
-      if (selectedProduct.options && !selectedOption) {
-        alert(`Please select a ${selectedProduct.options.label}`)
-        return
-      }
-
-      addToCart(selectedProduct)
-    }}
-  >
-    Add to Basket
-  </button>
-) : (
-  <button disabled>
-    Out of Stock
-  </button>
-)}
+<button
+  disabled={basketQuantity(cart, selectedProduct, selectedOption) >= availableStock(selectedProduct, selectedOption)}
+  onClick={() => addToCart(selectedProduct, selectedOption)}
+>
+  {selectedProduct.options && !selectedOption
+    ? `Select ${selectedProduct.options.label.toLowerCase()}`
+    : availableStock(selectedProduct, selectedOption) === 0
+      ? 'Out of Stock'
+      : basketQuantity(cart, selectedProduct, selectedOption) >= availableStock(selectedProduct, selectedOption)
+        ? 'All available stock in basket'
+        : 'Add to Basket'}
+</button>
 
   <a
     href="https://www.instagram.com/edinburghsmokeshop"
@@ -1204,11 +1203,9 @@ onClick={() => {
         <CartPanel
           cart={cart}
           cartTotal={cartTotal}
-          increaseQuantity={increaseQuantity}
-          decreaseQuantity={decreaseQuantity}
+          changeQuantity={changeQuantity}
           removeFromCart={removeFromCart}
           setCartOpen={setCartOpen}
-          emailBody={emailBody}
         />
       )}
 
@@ -1261,37 +1258,25 @@ onClick={() => {
         <div className="product-grid">
           {filteredProducts.map((product) => (
             <article className="product-card" key={product.id}>
-              <img
-                className="product-photo"
-                src={product.image}
-                alt={product.name}
-                onClick={() => {
-setProductScrollPosition(window.scrollY)
-window.history.pushState({ productOpen: true }, '', window.location.href)
-setSelectedProduct(product)
-}}
-              />
+              <a href={productUrl(product)} onClick={(event) => openProduct(event, product)}>
+                <img className="product-photo" src={product.image} alt={product.name} />
+              </a>
 
               <div className="product-info">
                 <p className="brand-tag">{product.category}</p>
-                <h3 onClick={() => {
-  setProductScrollPosition(window.scrollY)
-  window.history.pushState({ productOpen: true }, '', window.location.href)
-  setSelectedProduct(product)
-}}>{product.name}</h3>
+                <h3><a href={productUrl(product)} onClick={(event) => openProduct(event, product)}>{product.name}</a></h3>
                 <p className="price">{product.price}</p>
-
-                <button onClick={() => {
-  setProductScrollPosition(window.scrollY)
-  window.history.pushState({ productOpen: true }, '', window.location.href)
-  setSelectedProduct(product)
-}}>
+                <a className="button" href={productUrl(product)} onClick={(event) => openProduct(event, product)}>
                   View Details
-                </button>
-
-                <button onClick={() => addToCart(product)}>
-                  Add to Basket
-                </button>
+                </a>
+                {!product.options && (
+                  <button
+                    disabled={basketQuantity(cart, product, '') >= availableStock(product, '')}
+                    onClick={() => addToCart(product)}
+                  >
+                    {product.stock ? 'Add to Basket' : 'Out of Stock'}
+                  </button>
+                )}
               </div>
             </article>
           ))}
@@ -1374,8 +1359,7 @@ setSelectedProduct(product)
 function CartPanel({
   cart,
   cartTotal,
-  increaseQuantity,
-  decreaseQuantity,
+  changeQuantity,
   removeFromCart,
   setCartOpen
 }) {
@@ -1385,37 +1369,23 @@ function CartPanel({
   const [customerAddress, setCustomerAddress] = useState('')
   const [orderNotes, setOrderNotes] = useState('')
 
-const totalWeight = cart.reduce((sum, item) => {
-  return sum + ((item.weight || 0) * item.quantity)
-}, 0)
+  const { totalGrams, pricePence, service } = getUkPostage(cart, Math.round(cartTotal * 100))
+  const needsQuote = pricePence === null
+  const shippingCost = pricePence / 100
+  const orderTotal = cartTotal + shippingCost
 
-const shippingCost = totalWeight === 0 ? 0 : totalWeight <= 1 ? 3.99 : totalWeight <= 2 ? 5.99 : totalWeight <= 10 ? 7.35 : 0
-
-const shippingMethod =
-  totalWeight === 0
-    ? ""
-    : totalWeight <= 1
-      ? "Royal Mail Tracked 48 - Small Parcel"
-      : totalWeight <= 2
-        ? "Royal Mail Tracked 48 - Medium Parcel"
-        : totalWeight <= 10
-          ? "Royal Mail Tracked 48 - Large Parcel"
-          : "Please contact us for delivery quote"
-
-const orderTotal = cartTotal + shippingCost
-
-  const orderItems = cart
-    .map((item) => `${item.name} x ${item.quantity} - ${item.price}`)
-    .join('%0D%0A')
-
-  const customerDetails = `
-Name: ${customerName}
-Email: ${customerEmail}
-Phone: ${customerPhone}
-Delivery Address: ${customerAddress}
-Order Notes: ${orderNotes}
-`
-    .replaceAll('\n', '%0D%0A')
+  const orderItems = cart.map((item) => {
+    const option = item.selectedOption ? ` (${item.options.label}: ${item.selectedOption})` : ''
+    return `${item.name}${option} x ${item.quantity} - ${item.price} each`
+  })
+  const delivery = needsQuote ? service : `${service} - estimated £${shippingCost.toFixed(2)}`
+  const email = encodeURIComponent([
+    'Order:', ...orderItems, '', `Items total: £${cartTotal.toFixed(2)}`,
+    `Delivery: ${delivery}`,
+    ...(needsQuote ? [] : [`Estimated total: £${orderTotal.toFixed(2)}`]),
+    '', `Name: ${customerName}`, `Email: ${customerEmail}`, `Phone: ${customerPhone}`,
+    `Delivery address: ${customerAddress}`, `Order notes: ${orderNotes}`
+  ].join('\r\n'))
 
   return (
     <div className="cart-overlay">
@@ -1430,27 +1400,27 @@ Order Notes: ${orderNotes}
         ) : (
           <>
             {cart.map((item) => (
-              <div className="cart-item" key={item.id}>
+              <div className="cart-item" key={JSON.stringify([item.id, item.selectedOption])}>
                 <img src={item.image} alt={item.name} />
 
                 <div>
                   <h4>{item.name}</h4>
 
 {item.selectedOption && (
-  <p>Flavour: {item.selectedOption}</p>
+  <p>{item.options.label}: {item.selectedOption}</p>
 )}
 
                   <p>{item.price}</p>
 
                   <div className="quantity-row">
-                    <button onClick={() => decreaseQuantity(item.id)}>-</button>
+                    <button onClick={() => changeQuantity(item, -1)}>-</button>
                     <span>{item.quantity}</span>
-                    <button onClick={() => increaseQuantity(item.id)}>+</button>
+                    <button disabled={item.quantity >= availableStock(item, item.selectedOption)} onClick={() => changeQuantity(item, 1)}>+</button>
                   </div>
 
                   <button
                     className="remove-button"
-                    onClick={() => removeFromCart(item.id)}
+                    onClick={() => removeFromCart(item)}
                   >
                     Remove
                   </button>
@@ -1464,14 +1434,14 @@ Order Notes: ${orderNotes}
 </div>
 
 <div className="cart-total">
-  <strong>{shippingMethod}</strong>
-  <strong>£{shippingCost.toFixed(2)}</strong>
+  <strong>{service} · {totalGrams / 1000} kg of products</strong>
+  {!needsQuote && <strong>{pricePence === 0 ? 'Free' : `£${shippingCost.toFixed(2)}`}</strong>}
 </div>
 
-<div className="cart-total">
-  <strong>Total:</strong>
+{!needsQuote && <div className="cart-total">
+  <strong>Estimated total:</strong>
   <strong>£{orderTotal.toFixed(2)}</strong>
-</div>
+</div>}
 
             <div className="checkout-form">
               <h3>Delivery Details</h3>
@@ -1517,14 +1487,13 @@ Order Notes: ${orderNotes}
     marginBottom: '16px'
   }}
 >
-  Online card payments are coming soon. For now, submit your order and we will contact you to arrange payment and delivery.
+  Free UK delivery on orders of £{FREE_DELIVERY_SUBTOTAL_PENCE / 100} or more that fit in one parcel up to 2 kg. Other UK postage is estimated from the basket weight. We confirm the price after checking the packed weight, dimensions and destination, before you pay. Email your order to arrange payment and delivery.
 </p>
             <a
-              href={`mailto:smokeshop154@gmail.com?subject=New Smokology Scotland Order&body=Order:%0D%0A${orderItems}%0D%0A%0D%0AItems Total: £${cartTotal.toFixed(2)}%0D%0ADelivery: ${shippingMethod} - £${shippingCost.toFixed(2)}%0D%0ATotal: £${orderTotal.toFixed(2)}%0D%0A%0D%0ACustomer Details:%0D%0A${customerDetails}`}
+              href={`mailto:smokeshop154@gmail.com?subject=${encodeURIComponent('New Smokology Scotland Order')}&body=${email}`}
+              className="button checkout-button"
             >
-              <button className="checkout-button">
-                Email Order
-              </button>
+              {needsQuote ? 'Request Delivery Quote' : 'Email Order'}
             </a>
           </>
         )}
@@ -1574,7 +1543,7 @@ function LegalPage({ currentPage, setCurrentPage }) {
       title: 'Delivery Information',
       content: [
         'Delivery charges are calculated based on the total packed weight, parcel size, destination, and available Royal Mail delivery service.',
-        'Delivery charges will be confirmed before payment is taken.',
+        'Free UK delivery applies to orders of £100 or more that fit in one Royal Mail Tracked 48 parcel up to 2 kg. Delivery charges will be confirmed before payment is taken.',
         'Larger or heavier glass items may cost more to deliver due to weight, size, and protective packaging requirements.',
         'Orders are usually dispatched within 1–2 working days after payment is confirmed.',
         'Delivery times are estimates and may vary depending on the delivery provider.',

@@ -421,3 +421,12 @@ footer {
 .added-popup-buttons button {
   min-width: 160px;
 }
+.product-info .button,
+.checkout-button {
+  display: inline-block;
+  text-align: center;
+}
+
+.product-info .button {
+  margin-inline-end: 8px;
+}
